@@ -36,8 +36,8 @@ public class Drive extends Subsystem {
 	private TalonSRX steerRightRear;
 
   //Wheelbase lengthes are measured from where wheels touch the ground
-	public static final double WHEEL_BASE_LENGTH = 24;  
-  public static final double WHEEL_BASE_WIDTH = 24; 
+	public static final double WHEEL_BASE_LENGTH = 22.5;  
+  public static final double WHEEL_BASE_WIDTH = 22.5; 
   //Encoder counts are 1024 for ma3. 4096 for ctre mag encoders
 	public static final double ENCODER_COUNT_PER_ROTATION = 1024; 
 
@@ -54,7 +54,7 @@ public class Drive extends Subsystem {
   //The steering PIDs need to be adjusted for your drive. Start with I = D =0
   //Set P low and try moving. If no oscilation double P. When steer oscillates 
   //set P to last value that did not oscillate. set D to about P * 10 to start
-	private static final double STEER_P = 1.0, STEER_I = 0.0, STEER_D = 0.0;
+	private static final double STEER_P = 3, STEER_I = 0.0, STEER_D = 35;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
 	public Drive() {
@@ -91,7 +91,7 @@ public class Drive extends Subsystem {
 		steerLeftFront.configFactoryDefault();
 		steerLeftFront.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
     steerLeftFront.configFeedbackNotContinuous(false, 10);
-    steerLeftFront.setSensorPhase(false);
+    steerLeftFront.setSensorPhase(true);
     steerLeftFront.setInverted(false);
     steerLeftFront.config_kP(0, STEER_P, 10);
     steerLeftFront.config_kI(0, STEER_I, 10);
@@ -105,7 +105,7 @@ public class Drive extends Subsystem {
 		steerLeftRear.configFactoryDefault();
 		steerLeftRear.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
     steerLeftRear.configFeedbackNotContinuous(false, 10);
-    steerLeftRear.setSensorPhase(false);
+    steerLeftRear.setSensorPhase(true);
     steerLeftRear.setInverted(false);
     steerLeftRear.config_kP(0, STEER_P, 10);
     steerLeftRear.config_kI(0, STEER_I, 10);
@@ -119,7 +119,7 @@ public class Drive extends Subsystem {
 		steerRightFront.configFactoryDefault();
 		steerRightFront.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
     steerRightFront.configFeedbackNotContinuous(false, 10);
-    steerRightFront.setSensorPhase(false);
+    steerRightFront.setSensorPhase(true);
     steerRightFront.setInverted(false);
     steerRightFront.config_kP(0, STEER_P, 10);
     steerRightFront.config_kI(0, STEER_I, 10);
@@ -133,7 +133,7 @@ public class Drive extends Subsystem {
 		steerRightRear.configFactoryDefault();
 		steerRightRear.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
     steerRightRear.configFeedbackNotContinuous(false, 10);
-    steerRightRear.setSensorPhase(false);
+    steerRightRear.setSensorPhase(true);
     steerRightRear.setInverted(false);
     steerRightRear.config_kP(0, STEER_P, 10);
     steerRightRear.config_kI(0, STEER_I, 10);
@@ -175,10 +175,10 @@ public class Drive extends Subsystem {
     // double angleRR = angle(A, C) - 90;
 
     //If the drive are set to zero facing the front use the following
-    double angleLF = angle(B, D);
-    double angleLR = angle(A, D);
-    double angleRF = angle(B, C);
-    double angleRR = angle(A, C);
+    double angleLF = angle(B, D)+18992;
+    double angleLR = angle(A, D)+11974;
+    double angleRF = angle(B, C)-11555;
+    double angleRR = angle(A, C)-8194;
     // Compute the maximum speed so that we can scale all the speeds to the range [0, 1]
     double maxSpeed = Collections.max(Arrays.asList(speedLF, speedLR, speedRF, speedRR, 1.0));
 
