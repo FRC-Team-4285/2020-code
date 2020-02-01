@@ -13,8 +13,8 @@ import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
 public class FieldCentricSwerveDrive extends Command {
 	
-	public static final double OMEGA_SCALE = 1.0 / 30.0;
-	public static final double DEADZONE = 0.05;
+	public static final double OMEGA_SCALE = 1.0 / 36.0;
+	public static final double DEADZONE = 0.09;
 
 	private double originHeading = 0.0;
 	private double originCorr = 0;
@@ -39,8 +39,12 @@ public class FieldCentricSwerveDrive extends Command {
 
 		double strafe = Robot.oi.leftJoy.getX();
 		double forward = Robot.oi.leftJoy.getY() * -1;
-        double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-       		
+		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
+		/*
+		double strafe = Robot.oi.controller.getRawAxis(0);
+		double forward = Robot.oi.controller.getRawAxis(1) * -1;
+		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE;
+       	*/
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < DEADZONE) strafe = 0.0;
 		if (Math.abs(forward) < DEADZONE) forward = 0.0;

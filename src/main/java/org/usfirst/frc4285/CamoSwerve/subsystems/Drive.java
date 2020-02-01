@@ -48,13 +48,13 @@ public class Drive extends Subsystem {
   //Drive inches per count is calculated for cimcoders under motor with a final gear reduction of 6.67
   //which is the reduction for the andymark swerve and steer.
 	public static final double DRIVE_INCHES_PER_COUNT = (WHEEL_DIAMETER * Math.PI) / (80.0 * 6.67);
-	public static final double DEADZONE = 0.08;
+	public static final double DEADZONE = 0.1;
 	public static final double MAX_REVERSIBLE_SPEED_DIFFERENCE = 0.5 * MAX_SPEED;
 
   //The steering PIDs need to be adjusted for your drive. Start with I = D =0
   //Set P low and try moving. If no oscilation double P. When steer oscillates 
   //set P to last value that did not oscillate. set D to about P * 10 to start
-	private static final double STEER_P = 3, STEER_I = 0.0, STEER_D = 35;
+	private static final double STEER_P = 3.35, STEER_I = 0.0, STEER_D = 35;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
 	public Drive() {
@@ -175,10 +175,10 @@ public class Drive extends Subsystem {
     // double angleRR = angle(A, C) - 90;
 
     //If the drive are set to zero facing the front use the following
-    double angleLF = angle(B, D)+18992;
-    double angleLR = angle(A, D)+11974;
-    double angleRF = angle(B, C)-11555;
-    double angleRR = angle(A, C)-8194;
+    double angleLF = angle(B, D) - 91;
+    double angleLR = angle(A, D) + 93;
+    double angleRF = angle(B, C) - 38;
+    double angleRR = angle(A, C) + 84;
     // Compute the maximum speed so that we can scale all the speeds to the range [0, 1]
     double maxSpeed = Collections.max(Arrays.asList(speedLF, speedLR, speedRF, speedRR, 1.0));
 
