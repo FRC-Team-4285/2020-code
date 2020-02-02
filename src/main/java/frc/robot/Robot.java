@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -46,7 +46,7 @@ import com.playingwithfusion.TimeOfFlight;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -61,8 +61,6 @@ public class Robot extends IterativeRobot {
 
   Timer RobotTimer = new Timer();  
 
-  //  DigitalInput limitswitch1 = new DigitalInput(1);
-
   TimeOfFlight fly = new TimeOfFlight(10);
   
   VictorSPX SPX0 = new VictorSPX(0);
@@ -72,33 +70,15 @@ public class Robot extends IterativeRobot {
   CANSparkMax Motor2 = new CANSparkMax(2, MotorType.kBrushless);
   CANSparkMax Motor3 = new CANSparkMax(3, MotorType.kBrushless);
 
-  CANSparkMax Motor4 = new CANSparkMax(4, MotorType.kBrushless);//Elevator Motor
-  // CANSparkMax Motor5 = new CANSparkMax(5, MotorType.kBrushless);//12in lift Forward/Backwards Motor
-  CANSparkMax Motor6 = new CANSparkMax(6, MotorType.kBrushless);//Arm Angle Motor
-  CANSparkMax Motor7 = new CANSparkMax(7, MotorType.kBrushless);//Box Angle Motor
-
-  CANEncoder encoder4 = new CANEncoder(Motor4);//Elevator Encoder
-  CANEncoder encoder6 = new CANEncoder(Motor6);//Arm Angle Encoder
-  CANEncoder encoder7 = new CANEncoder(Motor7);//Box Angle Encoder
-
-
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 colorsensor = new ColorSensorV3(i2cPort);  
+  private final ColorSensorV3 m_color_sensor = new ColorSensorV3(i2cPort);  
 
-  private final ColorMatch colormatch = new ColorMatch();
-  
-  private final Color kBlue = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color kGreen = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color kRed = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color kYellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private final ColorMatch m_color_matcher = new ColorMatch();
 
-  // Solenoid solenoid0 = new Solenoid(5);//Hatch
-  // Solenoid solenoid1 = new Solenoid(2);//RAM
-
-  // DoubleSolenoid solenoid2 = new DoubleSolenoid (1,3);
-  // solenoid2.set(DoubleSolenoid.Value.kOff);
-  // solenoid2.set(DoubleSolenoid.Value.kForward);
-  // solenoid2.set(DoubleSolenoid.Value.kReverse);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
@@ -118,7 +98,11 @@ public class Robot extends IterativeRobot {
 
     Motor2.setInverted(true);
     Motor3.setInverted(true);
-    Motor7.setInverted(true);
+
+    m_color_matcher.addColorMatch(kBlueTarget);
+    m_color_matcher.addColorMatch(kGreenTarget);
+    m_color_matcher.addColorMatch(kRedTarget);
+    m_color_matcher.addColorMatch(kYellowTarget);    
   }
 
   /**
@@ -134,23 +118,28 @@ public class Robot extends IterativeRobot {
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
+    
+    Color detectedColor = m_color_sensor.getColor();
 
-    Color detectedColor = colorsensor.getColor();
-
+    /**
+     * Run the color match algorithm on our detected color
+     */
     String colorString;
-    ColorMatchResult match = colormatch.matchClosestColor(detectedColor);
+    ColorMatchResult match = m_color_matcher.matchClosestColor(detectedColor);
 
-    if (match.color == kBlue) {
+    if (match.color == kBlueTarget) {
       colorString = "Blue";
-    } else if (match.color == kRed) {
+    } else if (match.color == kRedTarget) {
       colorString = "Red";
-    } else if (match.color == kGreen) {
+    } else if (match.color == kGreenTarget) {
       colorString = "Green";
-    } else if (match.color == kYellow) {
+    } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
     } else {
       colorString = "Unknown";
     }
+
+    System.out.println(colorString + " (" + Math.round(match.confidence * 100) + "%)");
 
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
@@ -199,7 +188,15 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println(fly.getRange());
+    // Time of flight sensor.
+    double range = fly.getRange();
+
+    // If the range is invalid, we will ignore
+    // the data because the information is useless.
+    if (fly.isRangeValid()) {
+      // Range can be used within this check.
+      // System.out.println(range);
+    }
 
     boolean Eustop = stick2.getRawButtonReleased(5);
     boolean Edstop = stick2.getRawButtonReleased(1);
@@ -209,15 +206,10 @@ public class Robot extends IterativeRobot {
     boolean BoxAup = stick2.getRawButtonPressed(7);
     boolean BoxAustop = stick2.getRawButtonReleased(7);
     boolean BoxAdstop = stick2.getRawButtonReleased(3);
-    boolean RAM = stick.getRawButton(2);
-    boolean Hatchout = stick.getRawButtonPressed(3);
-    boolean Hatchin = stick.getRawButtonReleased(3);
-    boolean climb = stick.getRawButton(3);
     boolean ArmAup = stick2.getRawButtonPressed(6);
     boolean ArmAdown = stick2.getRawButtonPressed(2);
     boolean ArmAustop = stick2.getRawButtonReleased(6);
     boolean ArmAdstop = stick2.getRawButtonReleased(2);
-    boolean Climberout = stick2.getRawButtonPressed(4);
     //boolean Climberinout = stick2.getRawButtonPressed();
     
     //////////////////
@@ -247,79 +239,6 @@ public class Robot extends IterativeRobot {
     if(stick.getRawAxis(2) < .1 && stick.getRawAxis(3) < .1){
       SPX0.set(ControlMode.PercentOutput, 0);
     }
-    //////////////////
-    if(Eup){
-      Motor4.set(0.88);
-    }
-    if(Eustop){
-      Motor4.set(0);
-    }
-    if(Edown){
-      Motor4.set(-0.88);
-    }
-    if(Edstop){
-      Motor4.set(0);
-    }
-
-    if(BoxAup){
-      Motor7.set(-0.3);
-    }
-    if(BoxAustop){
-      Motor7.set(0);
-    }
-    if(BoxAdown){
-      Motor7.set(0.3);
-    }
-    if(BoxAdstop){
-      Motor7.set(0);
-    }
-
-    if(ArmAup){
-      Motor6.set(0.8);
-    }
-    if(ArmAustop){
-      Motor6.set(0);
-    }
-    if(ArmAdown){
-      Motor6.set(-0.5);
-    }
-    if(ArmAdstop){
-      Motor6.set(0);
-    }
-    /*
-    if(limitswitch1.get()){
-      SRX1.set(ControlMode.PercentOutput, -1);
-    }
-
-    if(climb) {
-      RobotTimer.start();
-      if(RobotTimer.get() < .25){
-      solenoid2.set(true);
-      }
-      else if(RobotTimer.get() > .25 && RobotTimer.get() < 5){
-        SRX1.set(ControlMode.PercentOutput, 0.5);
-      }
-      else if(RobotTimer.get() < 10 && RobotTimer.get() > 5){
-        SRX1.set(ControlMode.PercentOutput, 0);
-        Motor7.set(0.5);
-      }
-      else{
-        Motor7.set(0);
-      }
-    }
-  
-
-    if(Eup){
-      if(encoder7.getPosition() < -9){
-      Motor7.set(0.1);
-    }
-    else if (encoder4.getPosition() > 5){
-      Motor7.set(-0.1);
-    }
-    else{
-      Motor7.set(0.0);
-      }
-    }*/
   }
 
   /**
