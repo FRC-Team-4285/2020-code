@@ -13,7 +13,7 @@ import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
 public class FieldCentricSwerveDrive extends Command {
 	
-	public static final double OMEGA_SCALE = 1.0 / 36.0;
+	public static final double OMEGA_SCALE = 1.0 / 30.0;
 	public static final double DEADZONE = 0.09;
 
 	private double originHeading = 0.0;

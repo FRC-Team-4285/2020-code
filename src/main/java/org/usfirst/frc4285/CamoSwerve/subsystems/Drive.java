@@ -42,19 +42,19 @@ public class Drive extends Subsystem {
 	public static final double ENCODER_COUNT_PER_ROTATION = 1024; 
 
 	public static final double WHEEL_DIAMETER = 4.0;
-	//TODO: increase MAX_SPEED
+	//todo: increase MAX_SPEED
 	public static final double MAX_SPEED = 0.3; //Max speed is 0 to 1 
   public static final double STEER_DEGREES_PER_COUNT = 360.0 / ENCODER_COUNT_PER_ROTATION;
   //Drive inches per count is calculated for cimcoders under motor with a final gear reduction of 6.67
   //which is the reduction for the andymark swerve and steer.
 	public static final double DRIVE_INCHES_PER_COUNT = (WHEEL_DIAMETER * Math.PI) / (80.0 * 6.67);
-	public static final double DEADZONE = 0.1;
+	public static final double DEADZONE = 0.09;
 	public static final double MAX_REVERSIBLE_SPEED_DIFFERENCE = 0.5 * MAX_SPEED;
 
   //The steering PIDs need to be adjusted for your drive. Start with I = D =0
   //Set P low and try moving. If no oscilation double P. When steer oscillates 
   //set P to last value that did not oscillate. set D to about P * 10 to start
-	private static final double STEER_P = 3.35, STEER_I = 0.0, STEER_D = 35;
+	private static final double STEER_P = 3.85, STEER_I = 0.0, STEER_D = 35;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
 	public Drive() {
@@ -206,7 +206,7 @@ public class Drive extends Subsystem {
     if (currentAngle > 180.0) {
       currentAngle -= 360.0;
     }
-    // TODO: Properly invert the steering motors so this isn't necessary
+    // todo: Properly invert the steering motors so this isn't necessary
     // This is because the steering encoders are inverted
     double targetAngle = -angle;
     double deltaDegrees = targetAngle - currentAngle;
