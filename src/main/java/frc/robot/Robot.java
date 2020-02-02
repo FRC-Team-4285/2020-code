@@ -10,30 +10,20 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.I2C;
-//import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-//import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.util.Color;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 
@@ -51,34 +41,23 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
-  private static final boolean Climberin = false;
-  private static final boolean Climberout = false;
-  private static final boolean Climberinout = false;
-  
-  Joystick stick = new Joystick(0);
-  Joystick stick2 = new Joystick(1);
-
-  Timer RobotTimer = new Timer();  
-
-  TimeOfFlight fly = new TimeOfFlight(10);
-  
-  VictorSPX SPX0 = new VictorSPX(0);
-
-  CANSparkMax Motor0 = new CANSparkMax(8, MotorType.kBrushless);
-  CANSparkMax Motor1 = new CANSparkMax(1, MotorType.kBrushless);
-  CANSparkMax Motor2 = new CANSparkMax(2, MotorType.kBrushless);
-  CANSparkMax Motor3 = new CANSparkMax(3, MotorType.kBrushless);
-
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_color_sensor = new ColorSensorV3(i2cPort);  
-
   private final ColorMatch m_color_matcher = new ColorMatch();
 
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+  Joystick stick = new Joystick(0);
+  Joystick stick2 = new Joystick(1);
+  Timer RobotTimer = new Timer();  
+  TimeOfFlight fly = new TimeOfFlight(10);
+  CANSparkMax Motor0 = new CANSparkMax(8, MotorType.kBrushless);
+  CANSparkMax Motor1 = new CANSparkMax(1, MotorType.kBrushless);
+  CANSparkMax Motor2 = new CANSparkMax(2, MotorType.kBrushless);
+  CANSparkMax Motor3 = new CANSparkMax(3, MotorType.kBrushless);
 
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
@@ -115,17 +94,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
-    
-    Color detectedColor = m_color_sensor.getColor();
+    final double x = tx.getDouble(0.0);
+    final double y = ty.getDouble(0.0);
+    final double area = ta.getDouble(0.0);
+
+    final Color detectedColor = m_color_sensor.getColor();
 
     /**
      * Run the color match algorithm on our detected color
      */
     String colorString;
-    ColorMatchResult match = m_color_matcher.matchClosestColor(detectedColor);
+    final ColorMatchResult match = m_color_matcher.matchClosestColor(detectedColor);
 
     if (match.color == kBlueTarget) {
       colorString = "Blue";
@@ -150,14 +129,15 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString line to get the auto name from the text box below the Gyro
+   * between different autonomous modes using the dashboard. The sendable chooser
+   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+   * remove all of the chooser code and uncomment the getString line to get the
+   * auto name from the text box below the Gyro
    *
-   * <p>You can add additional auto modes by adding additional comparisons to
-   * the switch structure below with additional strings. If using the
-   * SendableChooser make sure to add them to the chooser code above as well.
+   * <p>
+   * You can add additional auto modes by adding additional comparisons to the
+   * switch structure below with additional strings. If using the SendableChooser
+   * make sure to add them to the chooser code above as well.
    */
   @Override
   public void autonomousInit() {
@@ -173,13 +153,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    case kCustomAuto:
+      // Put custom auto code here
+      break;
+    case kDefaultAuto:
+    default:
+      // Put default auto code here
+      break;
     }
   }
 
@@ -195,49 +175,43 @@ public class Robot extends TimedRobot {
     // the data because the information is useless.
     if (fly.isRangeValid()) {
       // Range can be used within this check.
-      // System.out.println(range);
+      System.out.println(range);
     }
-
-    boolean Eustop = stick2.getRawButtonReleased(5);
-    boolean Edstop = stick2.getRawButtonReleased(1);
-    boolean Eup = stick2.getRawButtonPressed(5);
-    boolean Edown = stick2.getRawButtonPressed(1);
-    boolean BoxAdown = stick2.getRawButtonPressed(3);
-    boolean BoxAup = stick2.getRawButtonPressed(7);
-    boolean BoxAustop = stick2.getRawButtonReleased(7);
-    boolean BoxAdstop = stick2.getRawButtonReleased(3);
-    boolean ArmAup = stick2.getRawButtonPressed(6);
-    boolean ArmAdown = stick2.getRawButtonPressed(2);
-    boolean ArmAustop = stick2.getRawButtonReleased(6);
-    boolean ArmAdstop = stick2.getRawButtonReleased(2);
-    //boolean Climberinout = stick2.getRawButtonPressed();
     
-    //////////////////
-    if(stick.getRawAxis(1) > 0.1 || stick.getRawAxis(1) < -0.1) {
+    /////////////////////////////////
+    //        JOYSTICK CODE        //
+    /////////////////////////////////
+
+    // Left Motors
+    if(stick.getRawAxis(1) > 0.1 || stick.getRawAxis(1) < -0.1)
+    {
+      // We are receiving joystick input, set the motor speed to the
+      // current ranged value of the joystick axis. This gives the robot's
+      // driver a variable "gas pedal" of sorts such that if you have
+      // the joystick in half position, the motors will be half power.
       Motor0.set(stick.getRawAxis(1));
       Motor1.set(stick.getRawAxis(1));
     }
-    if(stick.getRawAxis(1) < 0.1 && stick.getRawAxis(1) > -0.1){
+    else
+    {
+      // We are not receiving joystick input, so stop the motors.
       Motor0.set(0);
       Motor1.set(0);
     }
+
+    // Right Motors
     if(stick2.getRawAxis(1) > 0.1 || stick2.getRawAxis(1) < -0.1) {
+      // We are receiving joystick input, set the motor speed to the
+      // current ranged value of the joystick axis. This gives the robot's
+      // driver a variable "gas pedal" of sorts such that if you have
+      // the joystick in half position, the motors will be half power.
       Motor2.set(1 * stick2.getRawAxis(1));
       Motor3.set(1 * stick2.getRawAxis(1));
     }
     if(stick2.getRawAxis(1) < 0.1 && stick2.getRawAxis(1) > -0.1){
+      // We are not receiving joystick input, so stop the motors.
       Motor2.set(0);
       Motor3.set(0);
-    }
-
-    if(stick.getRawAxis(3) > 0.1){
-      SPX0.set(ControlMode.PercentOutput, 0.9);
-    }
-    if(stick.getRawAxis(2) > 0.1){
-      SPX0.set(ControlMode.PercentOutput, -1);
-    }
-    if(stick.getRawAxis(2) < .1 && stick.getRawAxis(3) < .1){
-      SPX0.set(ControlMode.PercentOutput, 0);
     }
   }
 
