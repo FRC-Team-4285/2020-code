@@ -141,11 +141,11 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("RF Steer Position", drive.getSteerRFEncoder());
         SmartDashboard.putNumber("RR Steer Position", drive.getSteerRREncoder());
     
-        // SmartDashboard.putNumber("NavXHeading", navX.getFusedHeading());
-        // SmartDashboard.putNumber("NavX Angle", navX.getAngle());
-        // SmartDashboard.putNumber("NavXCompass", navX.getCompassHeading());
-        // SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
-        // SmartDashboard.putNumber("ZeroHeading", zeroHeading);
+        SmartDashboard.putNumber("NavXHeading", navX.getFusedHeading());
+        SmartDashboard.putNumber("NavX Angle", navX.getAngle());
+        SmartDashboard.putNumber("NavXCompass", navX.getCompassHeading());
+        SmartDashboard.putNumber("NavX Yaw", navX.getYaw());
+        SmartDashboard.putNumber("ZeroHeading", zeroHeading);
     
     }    
 }
