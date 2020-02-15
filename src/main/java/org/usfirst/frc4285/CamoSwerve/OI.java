@@ -48,4 +48,12 @@ public class OI {
     public boolean getcontrollerAbuttonrelease (){
         return controller.getAButtonReleased();
     }
+
+    public boolean getcontrollerBbuttonpress (){
+        return controller.getBButtonPressed();
+    }
+
+    public boolean getcontrollerBbuttonrelease (){
+        return controller.getBButtonReleased();
+    }
 }

@@ -11,7 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 public class RobotMap {
-  public static AHRS navX; 
+  public static AHRS navX;
 
   public static final int LEFT_JOYSTICK = 0;
   public static final int RIGHT_JOYSTICK = 1;
@@ -34,7 +34,9 @@ public class RobotMap {
   public static final int THROWER_MOTOR_1_ID = 0;
   public static final int THROWER_MOTOR_2_ID = 0;
 
-  public static final int Ball_Pickup_ID = 0;
+  public static final int BALL_PICKUP_MOTOR_ID = 0;
+
+  public static final int LIFT_MOTOR_ID = 0;
 
   public static void init() {
     navX = new AHRS(SPI.Port.kMXP);

@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     public static Ballpickup ballpickup;
     public static Turret turret;
     public static Thrower thrower;
+    public static Lift lift;
     public static OI oi;
   
     Command autonomousCommand;

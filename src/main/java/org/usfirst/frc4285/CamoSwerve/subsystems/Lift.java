@@ -8,30 +8,31 @@
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class Ballpickup extends Subsystem {
-  private TalonSRX ballpickupmotor;
-
-  public void pickup (boolean w){
-    ballpickupmotor = new TalonSRX(RobotMap.BALL_PICKUP_MOTOR_ID);
-
-    ballpickupmotor.set(ControlMode.PercentOutput, 0.2);
-  }
-
-  public void pickstop (boolean w){
-    ballpickupmotor = new TalonSRX(RobotMap.BALL_PICKUP_MOTOR_ID);
-
-    ballpickupmotor.set(ControlMode.PercentOutput, 0.0);
-  }
-
+public class Lift extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+
+  private CANSparkMax liftmotor;
+
+  public void lift (boolean m){
+    liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
+
+    liftmotor.set(0.5);
+  }
+
+  public void liftstop (boolean m){
+    liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
+
+    liftmotor.set(0.0);
+  }
 
   @Override
   public void initDefaultCommand() {
