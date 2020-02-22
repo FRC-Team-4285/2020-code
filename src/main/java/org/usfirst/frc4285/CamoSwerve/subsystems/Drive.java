@@ -43,18 +43,18 @@ public class Drive extends Subsystem {
 
 	public static final double WHEEL_DIAMETER = 4.0;
 	//todo: increase MAX_SPEED
-	public static final double MAX_SPEED = 0.25; //Max speed is 0 to 1 
+	public static final double MAX_SPEED = 0.3; //Max speed is 0 to 1 
   public static final double STEER_DEGREES_PER_COUNT = 360.0 / ENCODER_COUNT_PER_ROTATION;
   //Drive inches per count is calculated for cimcoders under motor with a final gear reduction of 6.67
   //which is the reduction for the andymark swerve and steer.
 	public static final double DRIVE_INCHES_PER_COUNT = (WHEEL_DIAMETER * Math.PI) / (80.0 * 6.67);
-	public static final double DEADZONE = 0.08;
+	public static final double DEADZONE = 0.09;
 	public static final double MAX_REVERSIBLE_SPEED_DIFFERENCE = 0.5 * MAX_SPEED;
 
   //The steering PIDs need to be adjusted for your drive. Start with I = D =0
   //Set P low and try moving. If no oscilation double P. When steer oscillates 
   //set P to last value that did not oscillate. set D to about P * 10 to start
-	private static final double STEER_P = 3.65, STEER_I = 0.0, STEER_D = 40;
+	private static final double STEER_P = 3.85, STEER_I = 0.0, STEER_D = 35;
 	private static final int STATUS_FRAME_PERIOD = 5;
 
 	public Drive() {
@@ -175,10 +175,10 @@ public class Drive extends Subsystem {
     // double angleRR = angle(A, C) - 90;
 
     //If the drive are set to zero facing the front use the following
-    double angleLF = angle(B, D) - 112;
-    double angleLR = angle(A, D) - 85;
-    double angleRF = angle(B, C) + 92;
-    double angleRR = angle(A, C) + 14;
+    double angleLF = angle(B, D) - 91;
+    double angleLR = angle(A, D) + 93;
+    double angleRF = angle(B, C) - 38;
+    double angleRR = angle(A, C) + 84;
     // Compute the maximum speed so that we can scale all the speeds to the range [0, 1]
     double maxSpeed = Collections.max(Arrays.asList(speedLF, speedLR, speedRF, speedRR, 1.0));
 
@@ -232,7 +232,8 @@ public class Drive extends Subsystem {
 
 	}
 
-	//get Encoder values
+  //get Encoder values
+  
 	
 	public double getSteerLFEncoder() {
 		return steerLeftFront.getSelectedSensorPosition(0);
