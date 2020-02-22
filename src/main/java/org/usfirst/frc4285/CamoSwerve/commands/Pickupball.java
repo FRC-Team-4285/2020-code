@@ -32,7 +32,7 @@ public class Pickupball extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonTurretShoot();
+    return Robot.oi.getButtonBallPickup();
   }
 
   // Called once after isFinished returns true

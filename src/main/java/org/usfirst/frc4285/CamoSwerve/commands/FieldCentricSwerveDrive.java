@@ -17,7 +17,7 @@ public class FieldCentricSwerveDrive extends Command {
 	public static final double DEADZONE = 0.16;
 
 	private double originHeading = 0.0;
-	private double originCorr = 0;
+	// private double originCorr = 0;
 	
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
@@ -34,23 +34,15 @@ public class FieldCentricSwerveDrive extends Command {
 			originHeading = RobotMap.navX.getFusedHeading();
 		}
 
-		double originOffset = 360 - originHeading;
-		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
-
 		double strafe = Robot.oi.leftJoy.getX();
 		double forward = Robot.oi.leftJoy.getY() * -1;
 		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-		/*
-		double strafe = Robot.oi.controller.getRawAxis(0);
-		double forward = Robot.oi.controller.getRawAxis(1) * -1;
-		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE;
-       	*/
+
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < DEADZONE) strafe = 0.0;
 		if (Math.abs(forward) < DEADZONE) forward = 0.0;
 		if (Math.abs(omega) < DEADZONE * OMEGA_SCALE) omega = 0.0;
-		
-		
+	
 		// If all of the joysticks are in the deadzone, don't update the motors
 		// This makes side-to-side strafing much smoother
 		if (strafe == 0.0 && forward == 0.0 && omega == 0.0) {
@@ -64,7 +56,7 @@ public class FieldCentricSwerveDrive extends Command {
 		if (!Robot.oi.leftJoy.getTrigger()) {
         	// When the Left Joystick trigger is not pressed, The robot is in Field Centric Mode.
         	// The calculations correct the forward and strafe values for field centric attitude. 
-    		
+
     		// Rotate the velocity vector from the joystick by the difference between our
     		// current orientation and the current origin heading
     		double originCorrection = Math.toRadians(originHeading - RobotMap.navX.getFusedHeading());
@@ -72,10 +64,9 @@ public class FieldCentricSwerveDrive extends Command {
     		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
     		forward = temp;
 		}
-		
-		
+	
         Robot.drive.swerveDrive(strafe, forward, omega);
-    }
+	}
 
     @Override
 	protected boolean isFinished() {
@@ -90,5 +81,4 @@ public class FieldCentricSwerveDrive extends Command {
 	protected void interrupted() {
     	end();
     }
-
 }

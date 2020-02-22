@@ -27,7 +27,7 @@ public class OI {
     public Joystick leftJoy;
     public Joystick rightJoy;
     public XboxController controller;
-    public Button button1;
+    public Button btnThrow;
     public Button button2;
     public Button button3;
     public Button button4;
@@ -39,7 +39,8 @@ public class OI {
         leftJoy = new Joystick(RobotMap.LEFT_JOYSTICK);
         rightJoy = new Joystick(RobotMap.RIGHT_JOYSTICK);
         controller = new XboxController(RobotMap.CONTROLLER);
-        button1 = new JoystickButton(leftJoy, 3);
+        
+        btnThrow = new JoystickButton(leftJoy, 3);
         button2 = new JoystickButton(rightJoy, 5);
         button3 = new JoystickButton(rightJoy, 4);
         button4 = new JoystickButton(rightJoy, 3);
@@ -47,26 +48,34 @@ public class OI {
         button6 = new JoystickButton(leftJoy, 5);
         button7 = new JoystickButton(leftJoy, 2);
     
-        button1.whenPressed(new Throwing());
+        btnThrow.whenPressed(new Throwing());
         button2.whenPressed(new TurretRight());
         button3.whenPressed(new TurretLeft());
-        //button4.whenPressed(new Follow());
+        button4.whenPressed(new Follow());
         //button5.whenPressed(new Pickupballput());
-        //button6.whenPressed(new Pickupball());
+        button6.whenPressed(new Pickupball());
         //button7.whenPressed(new pickupRun());
     
+    }
+
+    public boolean getButtonTurretFollow() {
+        return rightJoy.getRawButtonReleased(3); 
     }
 
     public boolean getButtonLeftTurret() {
         return rightJoy.getRawButtonReleased(4);
     }
-    
+
     public boolean getButtonRightTurret() {
         return rightJoy.getRawButtonReleased(5);
     }
 
-    public boolean getButtonTurretShoot(){
+    public boolean getButtonTurretShoot() {
         return leftJoy.getRawButtonReleased(3);
+    }
+
+    public boolean getButtonBallPickup() {
+        return leftJoy.getRawButtonReleased(2);
     }
 
     public boolean getLeftJoyButton (int buttonNumber){
