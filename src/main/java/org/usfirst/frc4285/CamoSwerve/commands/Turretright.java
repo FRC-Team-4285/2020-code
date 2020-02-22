@@ -11,10 +11,11 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Throwing extends Command {
-  public Throwing() {
+public class Turretright extends Command {
+  public Turretright() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.thrower);
+    // eg. requires(chassis);
+    requires(Robot.turret);
   }
 
   // Called just before this Command runs the first time
@@ -25,21 +26,19 @@ public class Throwing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.thrower.thrown();
-    Robot.thrower.loadshooter();
-    Robot.thrower.loadstack();
+    //Robot.turret.right();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getbuttond();
+    return Robot.oi.getbuttonr();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.thrower.stop();
+    //Robot.turret.stop();
   }
 
   // Called when another command which requires one or more of the same

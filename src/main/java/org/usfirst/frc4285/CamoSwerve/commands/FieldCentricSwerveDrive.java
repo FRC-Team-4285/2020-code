@@ -22,7 +22,7 @@ public class FieldCentricSwerveDrive extends Command {
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);
     }
-	
+
 	@Override
 	protected void initialize() {
 		originHeading = Robot.zeroHeading;
@@ -36,11 +36,12 @@ public class FieldCentricSwerveDrive extends Command {
 
 		double originOffset = 360 - originHeading;
 		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
-
+		
 		double strafe = Robot.oi.leftJoy.getX();
 		double forward = Robot.oi.leftJoy.getY() * -1;
 		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-		/*
+		
+	    /*
 		double strafe = Robot.oi.controller.getRawAxis(0);
 		double forward = Robot.oi.controller.getRawAxis(1) * -1;
 		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE;

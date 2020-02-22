@@ -11,8 +11,6 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc4285.CamoSwerve.subsystems.*;
-
 public class Pickupball extends Command {
   public Pickupball() {
     requires(Robot.ballpickup);
@@ -28,21 +26,19 @@ public class Pickupball extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Ballpickup w = new Ballpickup();
-
-    w.pickup(Robot.oi.getcontrollerAbuttonpress());
-    w.pickstop(Robot.oi.getcontrollerAbuttonrelease());
+    Robot.ballpickup.ballin();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.oi.getbuttonreleased6();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.ballpickup.stop();
   }
 
   // Called when another command which requires one or more of the same

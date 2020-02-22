@@ -63,7 +63,6 @@ public class Robot extends TimedRobot {
 
         zeroHeading = navX.getFusedHeading();
         zeroAngle = navX.getAngle();
-    
     }
 
     /**
@@ -125,8 +124,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        
+
+
         Scheduler.getInstance().run();
+        
     }
+    
+
     /**
    * This function is called periodically during test mode.
    */
@@ -140,7 +145,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("LR Steer Position", drive.getSteerLREncoder());
         SmartDashboard.putNumber("RF Steer Position", drive.getSteerRFEncoder());
         SmartDashboard.putNumber("RR Steer Position", drive.getSteerRREncoder());
-    
+        //SmartDashboard.putNumber("shoot",drive.shoot());
         // SmartDashboard.putNumber("NavXHeading", navX.getFusedHeading());
         // SmartDashboard.putNumber("NavX Angle", navX.getAngle());
         // SmartDashboard.putNumber("NavXCompass", navX.getCompassHeading());
