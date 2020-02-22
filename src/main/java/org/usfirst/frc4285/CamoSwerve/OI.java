@@ -12,9 +12,7 @@
 package org.usfirst.frc4285.CamoSwerve;
 
 import org.usfirst.frc4285.CamoSwerve.commands.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.buttons.*;
-
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,8 +23,11 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class OI {
     /*
-     * This class contians 
+     * This class contians all I/O related methods,
+     * such as the initialization of Joysticks and
+     * Controllers.
      */
+
     public Joystick leftJoy;
     public Joystick rightJoy;
     public XboxController controller;

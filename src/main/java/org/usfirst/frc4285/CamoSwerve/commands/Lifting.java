@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4285.CamoSwerve.subsystems.*;
 
 public class Lifting extends Command {
+  Lift m;
+
   public Lifting() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -28,7 +30,7 @@ public class Lifting extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Lift m = new Lift();
+    m = new Lift();
 
     m.lift(Robot.oi.getcontrollerBbuttonpress());
     m.liftstop(Robot.oi.getcontrollerBbuttonrelease());
@@ -43,6 +45,7 @@ public class Lifting extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    m.close();
   }
 
   // Called when another command which requires one or more of the same
