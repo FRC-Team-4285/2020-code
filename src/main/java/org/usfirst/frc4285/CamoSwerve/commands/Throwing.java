@@ -9,8 +9,6 @@ package org.usfirst.frc4285.CamoSwerve.commands;
 
 import org.usfirst.frc4285.CamoSwerve.Robot;
 
-import org.usfirst.frc4285.CamoSwerve.subsystems.*;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Throwing extends Command {
@@ -27,21 +25,21 @@ public class Throwing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Thrower s = new Thrower();
-
-    s.thrown(Robot.oi.getRightTrigger());
-    s.loadshooter(Robot.oi.getRightTrigger());
+    Robot.thrower.thrown();
+    Robot.thrower.loadshooter();
+    Robot.thrower.loadstack();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.oi.getButtonTurretShoot();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.thrower.stop();
   }
 
   // Called when another command which requires one or more of the same

@@ -13,6 +13,7 @@ package org.usfirst.frc4285.CamoSwerve;
 
 import org.usfirst.frc4285.CamoSwerve.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.buttons.*;
 
 
 /**
@@ -26,11 +27,46 @@ public class OI {
     public Joystick leftJoy;
     public Joystick rightJoy;
     public XboxController controller;
+    public Button button1;
+    public Button button2;
+    public Button button3;
+    public Button button4;
+    public Button button5;
+    public Button button6;
+    public Button button7;
 
     public  OI(){
         leftJoy = new Joystick(RobotMap.LEFT_JOYSTICK);
         rightJoy = new Joystick(RobotMap.RIGHT_JOYSTICK);
         controller = new XboxController(RobotMap.CONTROLLER);
+        button1 = new JoystickButton(leftJoy, 3);
+        button2 = new JoystickButton(rightJoy, 5);
+        button3 = new JoystickButton(rightJoy, 4);
+        button4 = new JoystickButton(rightJoy, 3);
+        button5 = new JoystickButton(leftJoy, 4);
+        button6 = new JoystickButton(leftJoy, 5);
+        button7 = new JoystickButton(leftJoy, 2);
+    
+        button1.whenPressed(new Throwing());
+        button2.whenPressed(new TurretRight());
+        button3.whenPressed(new TurretLeft());
+        //button4.whenPressed(new Follow());
+        //button5.whenPressed(new Pickupballput());
+        //button6.whenPressed(new Pickupball());
+        //button7.whenPressed(new pickupRun());
+    
+    }
+
+    public boolean getButtonLeftTurret() {
+        return rightJoy.getRawButtonReleased(4);
+    }
+    
+    public boolean getButtonRightTurret() {
+        return rightJoy.getRawButtonReleased(5);
+    }
+
+    public boolean getButtonTurretShoot(){
+        return leftJoy.getRawButtonReleased(3);
     }
 
     public boolean getLeftJoyButton (int buttonNumber){

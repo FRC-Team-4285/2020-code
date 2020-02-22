@@ -10,8 +10,9 @@ package org.usfirst.frc4285.CamoSwerve;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
+
 public class RobotMap {
-  public static AHRS navX;
+  public static AHRS navX; 
 
   public static final int LEFT_JOYSTICK = 0;
   public static final int RIGHT_JOYSTICK = 1;
@@ -30,13 +31,16 @@ public class RobotMap {
   // shooter can ids
   // none set to can id yet
 
-  public static final int TURRET_ID = 0;
-  public static final int THROWER_MOTOR_1_ID = 0;
-  public static final int THROWER_MOTOR_2_ID = 0;
+  public static final int TURRET_ID = 11;
+  public static final int THROWER_MOTOR_ID = 9;
+  public static final int FEED_MOTOR_ID = 12;
+  public static final int STACK_MOTOR_ID = 10;
 
-  public static final int BALL_PICKUP_MOTOR_ID = 0;
+  public static final int BALL_PICKUP_MOTOR_ID = 14;
+  public static final int Pickup_Flip_ID = 13;
 
   public static final int LIFT_MOTOR_ID = 0;
+
 
   public static void init() {
     navX = new AHRS(SPI.Port.kMXP);
