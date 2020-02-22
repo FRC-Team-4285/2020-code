@@ -9,7 +9,6 @@ package org.usfirst.frc4285.CamoSwerve.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 

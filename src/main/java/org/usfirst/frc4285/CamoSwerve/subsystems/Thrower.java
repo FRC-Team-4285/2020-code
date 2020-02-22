@@ -12,7 +12,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc4285.CamoSwerve.Robot;
 
 /**
  * Add your docs here.

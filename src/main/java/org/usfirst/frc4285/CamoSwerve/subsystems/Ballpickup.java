@@ -10,8 +10,6 @@ package org.usfirst.frc4285.CamoSwerve.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -23,7 +21,7 @@ public class Ballpickup extends Subsystem {
   private CANSparkMax ballpickupmotor;
   private CANSparkMax pickupflipmotor;
   private CANPIDController pickupflipPID;
-  private CANEncoder pickupflipencoder; 
+  private CANEncoder pickupflipencoder;
 
   public void ballin (){
     pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
