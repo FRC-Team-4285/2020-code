@@ -25,7 +25,7 @@ public class Thrower extends Subsystem {
   public void thrown(){
     throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
   
-    throwermotor.set(-0.5);
+    throwermotor.set(-0.60);
   }
 
   public void loadshooter() {

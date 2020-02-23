@@ -11,8 +11,8 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Pickupball extends Command {
-  public Pickupball() {
+public class BallIntakeUp extends Command {
+  public BallIntakeUp() {
     requires(Robot.ballpickup);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -26,14 +26,13 @@ public class Pickupball extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Robot.ballpickup.ballin();
-    Robot.ballpickup.ballput();
+    Robot.ballpickup.ballin();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonBallPickup();
+    return Robot.oi.getButtonBallPickUp();
   }
 
   // Called once after isFinished returns true

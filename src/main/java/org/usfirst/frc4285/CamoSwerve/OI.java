@@ -36,6 +36,7 @@ public class OI {
     public Button btnTurretTurnLeft;
     public Button btnTurretTracking;
     public Button btnBallIntakePickup;
+    public Button btnBallIntakeUp;
     public Button btnBallIntakeDrop;
     public Button button7;
 
@@ -68,10 +69,13 @@ public class OI {
         btnTurretTracking = new JoystickButton(rightJoy, 3);
         btnTurretTracking.whenPressed(new Follow());
 
-        // Ball Intake Pickup/Dropping
-        btnBallIntakeDrop = new JoystickButton(leftJoy, 5);
-        btnBallIntakeDrop.whenPressed(new Pickupball());
+        // Ball Intake Pickup
+        btnBallIntakeUp = new JoystickButton(leftJoy, 5);
+        btnBallIntakeUp.whenPressed(new BallIntakeUp());
 
+        // Bsll Intake Dropping
+        btnBallIntakeDrop = new JoystickButton(leftJoy, 4);
+        btnBallIntakeDrop.whenPressed(new BallIntakeDrop());
 
         //////////////////////////////////////
         ///     PENDING IMPLEMENTATION     ///
@@ -124,7 +128,7 @@ public class OI {
         return rightJoy.getRawButtonReleased(1);
     }
 
-    public boolean getButtonBallPickup() {
+    public boolean getButtonBallPickUp() {
         /*
          * Returns the activity status of the button
          * mapped to enable the ball intake to pick
@@ -132,6 +136,16 @@ public class OI {
          */
 
         return leftJoy.getRawButtonReleased(5);
+    }
+
+    public boolean getButtonBallDrop() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the ball intake to drop
+         * the ball into the feeder.
+         */
+
+         return leftJoy.getRawButtonReleased(4);
     }
 
     public boolean getLeftJoyButton (int buttonNumber) {

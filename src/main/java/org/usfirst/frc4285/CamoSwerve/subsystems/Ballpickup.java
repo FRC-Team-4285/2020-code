@@ -7,9 +7,11 @@
 
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -35,9 +37,9 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setFF(0.0);
     pickupflipPID.setOutputRange(-.35, .35);
 
-    // pickupflipPID.setReference(10, ControlType.kPosition);
-    // pickupflipmotor.set(0.1);
-    // System.out.println(pickupflipencoder.getPosition());
+    pickupflipPID.setReference(108.76432800292969, ControlType.kPosition);
+    // pickupflipmotor.set(0.35);
+    System.out.println(pickupflipencoder.getPosition());
 
     ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
     ballpickupmotor.set(1.0);
@@ -53,11 +55,11 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setD(0.0);
     pickupflipPID.setIZone(0.0);
     pickupflipPID.setFF(0.0);
-    pickupflipPID.setOutputRange(-.5, .5);
+    pickupflipPID.setOutputRange(-.35, .35);
 
-    //pickupflipPID.setReference(0, ControlType.kPosition);
-    pickupflipmotor.set(-0.35);
-    //System.out.println(pickupflipencoder.getPosition());
+    pickupflipPID.setReference(0, ControlType.kPosition);
+    // pickupflipmotor.set(-0.35);
+    System.out.println(pickupflipencoder.getPosition());
 
     // ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
 
@@ -66,7 +68,8 @@ public class Ballpickup extends Subsystem {
 
   public void ballrun () {
     ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
-    ballpickupmotor.set(1.0);
+    Timer.delay(0.75);
+    ballpickupmotor.set(0.8);
   }
 
   public void stop (){

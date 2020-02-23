@@ -75,10 +75,10 @@ public class FieldCentricSwerveDrive extends Command {
 
     @Override
 	protected void end() {
+		Robot.drive.close();
     }
 
     @Override
 	protected void interrupted() {
-    	end();
     }
 }
