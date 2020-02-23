@@ -27,26 +27,27 @@ public class Turret extends Subsystem {
   private CANSparkMax turretmotor;
   private CANPIDController turretPID;
   private CANEncoder turretencoder;
-  private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  private NetworkTable table;
 
-  public void following() {
-    System.out.println("Hello");
+  public Turret() {
     turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
     turretencoder = new CANEncoder(turretmotor);
-    turretPID = turretmotor.getPIDController();
+    table = NetworkTableInstance.getDefault().getTable("limelight");
+  }
 
+  public void following() {
     NetworkTableEntry tx = table.getEntry("tx");
-    // NetworkTableEntry ty = table.getEntry("ty");
-    // NetworkTableEntry ta = table.getEntry("ta");
+    table.getEntry("ledMode").setNumber(2);
 
     // Read values periodically
     double x = tx.getDouble(0.0);
-    // double y = ty.getDouble(0.0);
-    // double area = ta.getDouble(0.0);
+    System.out.println("NetworkTableEntry tx.getDouble(0.0): " + x);
 
+    /*
     double turretposition = turretencoder.getPosition();
     double target = turretposition - x*.2284338889;
 
+    turretPID = turretmotor.getPIDController();
     turretPID.setP(0.1);
     turretPID.setI(0.0);
     turretPID.setD(0.0);
@@ -55,8 +56,7 @@ public class Turret extends Subsystem {
     turretPID.setOutputRange(-0.2, 0.2);
 
     turretPID.setReference(target, ControlType.kPosition);
-
-    System.out.println(tx);
+    */
 
     /*
     if (turretencoder.getPosition() < 20 && turretencoder.getPosition() > -20){
@@ -74,28 +74,62 @@ public class Turret extends Subsystem {
     }
     */
   }
-  public void left() {
-    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);    
-    turretencoder = new CANEncoder(turretmotor);
 
-    turretmotor.set(-0.85);
-    System.out.println(turretencoder.getPosition());
+  public void left() {
+    /**
+     * Turns the turret to the left.
+     */
+
+    double pos = turretencoder.getPosition();
+
+    // If we are above 60.0, we can turn left;
+    // otherwise, we cannot continue because of
+    // clearance issues on the robot.
+    if (pos > 60.0) {
+      // If the motor is already engaged, do not
+      // tell it to start again.
+      if (turretmotor.get() > 0.00 == false) {
+        // Start the motor.
+        turretmotor.set(-0.25);
+      }
+    }
+    else {
+      // Stop the motor.
+      turretmotor.set(0.0);
+    }
   }
 
   public void right() {
-    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
-    turretencoder = new CANEncoder(turretmotor);
+    /**
+     * Turns the turret to the right.
+     */
 
-    turretmotor.set(0.85);
-    System.out.println(turretencoder.getPosition());
+    double pos = turretencoder.getPosition();
+
+    // If we are below 150.0, we can turn left;
+    // otherwise, we cannot continue because of
+    // clearance issues on the robot.
+    if (pos < 150.0) {
+      // If the motor is already engaged, do not
+      // tell it to start again.
+      if (turretmotor.get() < 0.0 == false) {
+        // Start the motor.
+        turretmotor.set(0.25);
+      }
+    }
+    else {
+      // Stop the motor.
+      turretmotor.set(0.0);
+    }
   }
 
   public void stop() {
-    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
-    turretencoder = new CANEncoder(turretmotor);
+    /**
+     * Stop the motor entirely.
+     */
 
     turretmotor.set(0.0);
-    System.out.println(turretencoder.getPosition());
+    // System.out.println(turretencoder.getPosition());
   }
   
   // Put methods for controlling this subsystem

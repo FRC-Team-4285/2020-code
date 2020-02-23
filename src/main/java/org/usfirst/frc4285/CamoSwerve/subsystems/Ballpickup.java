@@ -35,15 +35,13 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setFF(0.0);
     pickupflipPID.setOutputRange(-.2, .2);
 
-    //pickupflipPID.setReference(10, ControlType.kPosition);
-    //pickupflipmotor.set(0.1);
+    // pickupflipPID.setReference(10, ControlType.kPosition);
+    // pickupflipmotor.set(0.1);
     // System.out.println(pickupflipencoder.getPosition());
 
     ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
-
-    ballpickupmotor.set(0.8);
+    ballpickupmotor.set(1.0);
   }
-   
 
   public void ballput (){
     pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
@@ -58,22 +56,18 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setOutputRange(-.2, .2);
 
     //pickupflipPID.setReference(0, ControlType.kPosition);
-    //pickupflipmotor.set(-0.1);
+    pickupflipmotor.set(-0.35);
     //System.out.println(pickupflipencoder.getPosition());
 
-    ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
+    // ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
 
-    ballpickupmotor.set(0.8);
-  }
-  public void ballrun (){
-    ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
-
-    ballpickupmotor.set(0.8);
-
-
-
+    // ballpickupmotor.set(1.0);
   }
 
+  public void ballrun () {
+    ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
+    ballpickupmotor.set(1.0);
+  }
 
   public void stop (){
     ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
@@ -82,9 +76,6 @@ public class Ballpickup extends Subsystem {
     ballpickupmotor.set(0.0);
     pickupflipmotor.set(0.0);
   }
-
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {

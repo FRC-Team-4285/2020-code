@@ -53,8 +53,8 @@ public class OI {
         ///////////////////////////////
 
         // Turret Shooting
-        btnThrow = new JoystickButton(leftJoy, 3);
-        btnThrow.whenPressed(new Throwing());
+        // btnThrow = new JoystickButton(leftJoy, 3);
+        // btnThrow.whenPressed(new Throwing());
 
         // Turret Manual Right Turn
         btnTurretTurnRight = new JoystickButton(rightJoy, 5);
@@ -68,15 +68,17 @@ public class OI {
         btnTurretTracking = new JoystickButton(rightJoy, 3);
         btnTurretTracking.whenPressed(new Follow());
 
+        // Ball Intake Pickup/Dropping
+        // btnBallIntakeDrop = new JoystickButton(leftJoy, 5);
+        // btnBallIntakeDrop.whenPressed(new Pickupball());
+
+
         //////////////////////////////////////
         ///     PENDING IMPLEMENTATION     ///
         //////////////////////////////////////
 
-        // Ball Intake Pickup/Dropping
         // btnBallIntakePickup = new JoystickButton(leftJoy, 4);
         // btnBallIntakePickup.whenPressed(new Pickupballput());
-        // btnBallIntakeDrop = new JoystickButton(leftJoy, 5);
-        // btnBallIntakeDrop.whenPressed(new Pickupball());
 
         // DEBUG: Ball Intake Initializer
         // btnRunBallIntake = new JoystickButton(leftJoy, 2);
@@ -129,7 +131,7 @@ public class OI {
          * up a ball.
          */
 
-        return leftJoy.getRawButtonReleased(2);
+        return leftJoy.getRawButtonReleased(5);
     }
 
     public boolean getLeftJoyButton (int buttonNumber) {
