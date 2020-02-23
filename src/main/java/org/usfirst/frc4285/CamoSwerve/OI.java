@@ -69,8 +69,8 @@ public class OI {
         btnTurretTracking.whenPressed(new Follow());
 
         // Ball Intake Pickup/Dropping
-        // btnBallIntakeDrop = new JoystickButton(leftJoy, 5);
-        // btnBallIntakeDrop.whenPressed(new Pickupball());
+        btnBallIntakeDrop = new JoystickButton(leftJoy, 5);
+        btnBallIntakeDrop.whenPressed(new Pickupball());
 
 
         //////////////////////////////////////
