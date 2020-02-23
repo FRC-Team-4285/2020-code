@@ -17,7 +17,7 @@ public class FieldCentricSwerveDrive extends Command {
 	public static final double DEADZONE = 0.16;
 
 	private double originHeading = 0.0;
-	// private double originCorr = 0;
+	private double originCorr = 0;
 	
 	public FieldCentricSwerveDrive() {
         requires(Robot.drive);

@@ -53,8 +53,8 @@ public class OI {
         ///////////////////////////////
 
         // Turret Shooting
-        // btnThrow = new JoystickButton(leftJoy, 3);
-        // btnThrow.whenPressed(new Throwing());
+        btnThrow = new JoystickButton(leftJoy, 3);
+        btnThrow.whenPressed(new Throwing());
 
         // Turret Manual Right Turn
         btnTurretTurnRight = new JoystickButton(rightJoy, 5);

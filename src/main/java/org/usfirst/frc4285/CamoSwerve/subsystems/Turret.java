@@ -53,7 +53,7 @@ public class Turret extends Subsystem {
     turretPID.setD(0.0);
     turretPID.setIZone(0.0);
     turretPID.setFF(0.0);
-    turretPID.setOutputRange(-0.1, 0.1);
+    turretPID.setOutputRange(-0.2, 0.2);
 
     turretPID.setReference(target, ControlType.kPosition);
 
@@ -80,7 +80,6 @@ public class Turret extends Subsystem {
      */
 
     double pos = turretencoder.getPosition();
-    System.out.println(pos);
 
     // If we are above -45.33, we can turn left;
     // otherwise, we cannot continue because of
@@ -88,7 +87,7 @@ public class Turret extends Subsystem {
     if (pos > -42.82) {
       // If the motor is already engaged, do not
       // tell it to start again.
-      if (turretmotor.get() > 0.00 == false) {
+      if (turretmotor.get() > -0.03 == false) {
         // Start the motor.
         turretmotor.set(-0.35);
       }
@@ -105,14 +104,14 @@ public class Turret extends Subsystem {
      */
 
     double pos = turretencoder.getPosition();
-    System.out.println(pos);
+
     // If we are below 53.76, we can turn right;
     // otherwise, we cannot continue because of
     // clearance issues on the robot.
     if (pos < 51.25) {
       // If the motor is already engaged, do not
       // tell it to start again.
-      if (turretmotor.get() < 0.0 == false) {
+      if (turretmotor.get() < 0.03 == false) {
         // Start the motor.
         turretmotor.set(0.35);
       }
