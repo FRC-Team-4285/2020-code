@@ -53,7 +53,7 @@ public class OI {
         ///////////////////////////////
 
         // Turret Shooting
-        btnThrow = new JoystickButton(leftJoy, 3);
+        btnThrow = new JoystickButton(rightJoy, 1);
         btnThrow.whenPressed(new Throwing());
 
         // Turret Manual Right Turn
@@ -121,7 +121,7 @@ public class OI {
          * mapped to shooting the turret.
          */
 
-        return leftJoy.getRawButtonReleased(3);
+        return rightJoy.getRawButtonReleased(1);
     }
 
     public boolean getButtonBallPickup() {
