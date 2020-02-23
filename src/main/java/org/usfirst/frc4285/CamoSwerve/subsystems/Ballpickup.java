@@ -41,14 +41,14 @@ public class Ballpickup extends Subsystem {
     //pickupflipmotor.set(0.1);
     //System.out.println(pickupflipencoder.getPosition());
 
-    ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
+       ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);
 
     ballpickupmotor.set(0.8);
   }
    
 
   public void ballput (){
-    pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
+      pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
     pickupflipencoder = new CANEncoder(pickupflipmotor);
     pickupflipPID = pickupflipmotor.getPIDController();
 

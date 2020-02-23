@@ -78,7 +78,7 @@ public class Turret extends Subsystem {
     turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);    
     turretencoder = new CANEncoder(turretmotor);
 
-    turretmotor.set(-0.85);
+    turretmotor.set(-0.95);
     System.out.println(turretencoder.getPosition());
   }
 
@@ -86,7 +86,7 @@ public class Turret extends Subsystem {
     turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
     turretencoder = new CANEncoder(turretmotor);
 
-    turretmotor.set(0.85);
+    turretmotor.set(0.95);
     System.out.println(turretencoder.getPosition());
   }
 
