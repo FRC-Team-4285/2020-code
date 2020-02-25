@@ -48,12 +48,12 @@ public class Turret extends Subsystem {
     double target = turretposition + x * (53.76 / 90.0);
 
     turretPID = turretmotor.getPIDController();
-    turretPID.setP(0.1);
-    turretPID.setI(0.0);
-    turretPID.setD(0.0);
+    turretPID.setP(0.12);
+    turretPID.setI(0.00);
+    turretPID.setD(0.5);
     turretPID.setIZone(0.0);
     turretPID.setFF(0.0);
-    turretPID.setOutputRange(-0.2, 0.2);
+    turretPID.setOutputRange(-0.3, 0.3);
 
     turretPID.setReference(target, ControlType.kPosition);
 
