@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.buttons.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+
 
 public class OI {
     /*
@@ -38,7 +40,9 @@ public class OI {
     public Button btnBallIntakePickup;
     public Button btnBallIntakeUp;
     public Button btnBallIntakeDrop;
+    public Button btnHailMary;
     public Button button7;
+    public Timer time;
 
     public  OI() {
         //////////////////////////////////
@@ -62,20 +66,24 @@ public class OI {
         btnTurretTurnRight.whenPressed(new TurretRight());
 
         // Turret Manual Left Turn
-        btnTurretTurnLeft = new JoystickButton(rightJoy, 4);
+        btnTurretTurnLeft = new JoystickButton(rightJoy, 6);
         btnTurretTurnLeft.whenPressed(new TurretLeft());
 
         // DEBUG: Turret Auto-Tracking Initializer
-        btnTurretTracking = new JoystickButton(rightJoy, 3);
+        btnTurretTracking = new JoystickButton(rightJoy, 2);
         btnTurretTracking.whenPressed(new Follow());
 
         // Ball Intake Pickup
-        btnBallIntakeUp = new JoystickButton(leftJoy, 5);
+        btnBallIntakeUp = new JoystickButton(leftJoy, 4);
         btnBallIntakeUp.whenPressed(new BallIntakeUp());
 
-        // Bsll Intake Dropping
-        btnBallIntakeDrop = new JoystickButton(leftJoy, 4);
+        // Ball Intake Dropping
+        btnBallIntakeDrop = new JoystickButton(leftJoy, 3);
         btnBallIntakeDrop.whenPressed(new BallIntakeDrop());
+
+        // End game shot
+        btnHailMary = new JoystickButton(leftJoy, 5);
+        btnHailMary.whenPressed(new HailMary());
 
         //////////////////////////////////////
         ///     PENDING IMPLEMENTATION     ///
@@ -98,7 +106,7 @@ public class OI {
          * mapped to initialize the turret following AI.
          */
 
-        return rightJoy.getRawButtonReleased(3); 
+        return rightJoy.getRawButtonReleased(2); 
     }
 
     public boolean getButtonLeftTurret() {
@@ -107,7 +115,7 @@ public class OI {
          * mapped to turning turret to the left.
          */
 
-        return rightJoy.getRawButtonReleased(4);
+        return rightJoy.getRawButtonReleased(6);
     }
 
     public boolean getButtonRightTurret() {
@@ -135,7 +143,7 @@ public class OI {
          * up a ball.
          */
 
-        return leftJoy.getRawButtonReleased(5);
+        return leftJoy.getRawButtonReleased(4);
     }
 
     public boolean getButtonBallDrop() {
@@ -145,7 +153,7 @@ public class OI {
          * the ball into the feeder.
          */
 
-         return leftJoy.getRawButtonReleased(4);
+         return leftJoy.getRawButtonReleased(3);
     }
 
     public boolean getLeftJoyButton (int buttonNumber) {
@@ -155,6 +163,15 @@ public class OI {
          */
 
         return leftJoy.getRawButton(buttonNumber);
+    }
+
+    public boolean getButtonHailMary() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the end game shot at 75%
+         */
+
+        return leftJoy.getRawButtonReleased(5);
     }
 
     public double getRightTrigger () {

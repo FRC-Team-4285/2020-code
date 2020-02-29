@@ -10,8 +10,11 @@ package org.usfirst.frc4285.CamoSwerve.commands;
 import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class Throwing extends Command {
+  private WaitCommand waitCommand;
+
   public Throwing() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.thrower);
@@ -20,14 +23,24 @@ public class Throwing extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    waitCommand = new WaitCommand("thrower", 1.35);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.thrower.thrown();
-    Robot.thrower.loadshooter();
-    Robot.thrower.loadstack();
+    if (timeSinceInitialized() > 0) {
+      Robot.thrower.thrown();
+    }
+    if (timeSinceInitialized() > 0.5) {
+      Robot.thrower.thrown();
+      Robot.thrower.loadstack();
+    }  
+    if(timeSinceInitialized() > 1.35) {
+      Robot.thrower.thrown();
+      Robot.thrower.loadstack();
+      Robot.thrower.loadshooter();
+ } 
   }
 
   // Make this return true when this Command no longer needs to run execute()

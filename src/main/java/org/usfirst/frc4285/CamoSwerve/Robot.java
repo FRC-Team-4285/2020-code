@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
 
         chooser.setDefaultOption("Default Auto", new FieldCentricSwerveDrive());
         // chooser.addOption("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+        // SmartDashboard.putData("Auto mode", chooser);
 
         zeroHeading = navX.getFusedHeading();
         zeroAngle = navX.getAngle();

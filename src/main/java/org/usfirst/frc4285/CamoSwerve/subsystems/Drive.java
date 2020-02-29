@@ -62,25 +62,29 @@ public class Drive extends Subsystem {
 
 		driveLeftFrontSpark = new CANSparkMax(RobotMap.DRIVE_LEFT_FRONT_ID, MotorType.kBrushless);
 		driveLeftFrontSpark.restoreFactoryDefaults();
-		driveLeftFrontSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftFrontSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftFrontSpark.setInverted(false);
 		driveLeftFrontSpark.setOpenLoopRampRate(0.125);
 		driveLeftFrontSpark.setSmartCurrentLimit(60);
 		
 		driveLeftRearSpark = new CANSparkMax(RobotMap.DRIVE_LEFT_REAR_ID, MotorType.kBrushless);
 		driveLeftRearSpark.restoreFactoryDefaults();
-		driveLeftRearSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftRearSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftFrontSpark.setInverted(false);
 		driveLeftRearSpark.setOpenLoopRampRate(0.125);
 		driveLeftRearSpark.setSmartCurrentLimit(60);
 
 		driveRightFrontSpark = new CANSparkMax(RobotMap.DRIVE_RIGHT_FRONT_ID, MotorType.kBrushless);
 		driveRightFrontSpark.restoreFactoryDefaults();
-		driveRightFrontSpark.setIdleMode(IdleMode.kBrake);
+    driveRightFrontSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftFrontSpark.setInverted(false);
 		driveRightFrontSpark.setOpenLoopRampRate(0.125);
 		driveRightFrontSpark.setSmartCurrentLimit(60);
 
 		driveRightRearSpark = new CANSparkMax(RobotMap.DRIVE_RIGHT_REAR_ID, MotorType.kBrushless);
 		driveRightRearSpark.restoreFactoryDefaults();
-		driveRightRearSpark.setIdleMode(IdleMode.kBrake);
+    driveRightRearSpark.setIdleMode(IdleMode.kBrake);
+    driveLeftFrontSpark.setInverted(false);
 		driveRightRearSpark.setOpenLoopRampRate(0.125);
 		driveRightRearSpark.setSmartCurrentLimit(60);
 		// END OF DRIVE MOTOR CONTROLLER CONFIGURATION
@@ -227,7 +231,7 @@ public class Drive extends Subsystem {
 		double targetPosition = currentPosition + deltaDegrees * ENCODER_COUNT_PER_ROTATION / 360.0;
 		steer.set(ControlMode.Position, targetPosition);
     //drive.set(ControlMode.PercentOutput, speed);
-    drive.set(speed);
+    drive.set(-speed);
 
 	}
 
@@ -266,7 +270,6 @@ public class Drive extends Subsystem {
 	public void setDriveRightRear(double speed){
 		driveRightRearSpark.set(speed);
 	}
-
 	
 	@Override
 	public void initDefaultCommand() {

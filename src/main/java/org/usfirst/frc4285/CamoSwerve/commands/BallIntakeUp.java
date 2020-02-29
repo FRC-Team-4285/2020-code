@@ -27,6 +27,9 @@ public class BallIntakeUp extends Command {
   @Override
   protected void execute() {
     Robot.ballpickup.ballin();
+    if (timeSinceInitialized() > 0.75) {
+    Robot.ballpickup.ballrun();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

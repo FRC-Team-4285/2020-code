@@ -7,6 +7,7 @@
 
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -15,7 +16,6 @@ import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
 import java.lang.Math;
 
 /**
@@ -26,7 +26,6 @@ public class Thrower extends Subsystem {
   private CANSparkMax throwermotor;
   private CANSparkMax feedmotor;
   private CANSparkMax stackmotor;
-  private Timer timer;
   private NetworkTable table;
   private double a1;
   private double a2;
@@ -39,39 +38,40 @@ public class Thrower extends Subsystem {
     throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
     
     table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry ty = table.getEntry("ty");
-    a1 = 12;
-    a2 = ty.getDouble(0.0);
-    h1 = 27;
-    h2 = 98;
+    final NetworkTableEntry ty = table.getEntry("ty");
+    a1 = 12; // Angel of camera from the horizontal in degrees
+    a2 = ty.getDouble(0.0); // Angel of tower to camera found with limelight
+    h1 = 27; // Height of limelight to ground in inches
+    h2 = 82; // Height of tower's tape to ground in inches
 
-    d = ((h2-h1) / Math.tan(a1+a2)) - 50;
+    d = 55 / Math.tan(Math.toRadians(a1+a2)); // Calculates the distance between camera and target
     
-    // power = -236 + 2.7*d + -0.00623*(d*d);
-    power = 25.9*Math.pow(Math.E, 0.00368*d);
-  
-    throwermotor.set(power);
-    System.out.println(power);
+    power = 4.06 + 0.346*d + -0.000475*(d*d);
+    // power = 25.9*Math.pow(Math.E, 0.00368*d);
+    throwermotor.set(-(int)power);
+
+    System.out.println(-(int)power);
   }
 
   public void loadshooter() {
       feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
-      
       feedmotor.set(0.8);
-
-      //Timer.delay(1.35);
     }
 
-  public void loadstack(){
+  public void loadstack() {
     
     stackmotor = new CANSparkMax(RobotMap.STACK_MOTOR_ID, MotorType.kBrushless);
 
     stackmotor.set(1.0);
-
-    //Timer.delay(0.5);
   }
 
-  public void stop(){
+  public void Hail() {
+    throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
+
+    throwermotor.set(-0.78);
+  }
+
+  public void stop() {
     throwermotor.set(0);
     feedmotor.set(0);
     stackmotor.set(0);
