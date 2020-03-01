@@ -9,14 +9,14 @@ package org.usfirst.frc4285.CamoSwerve.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoMiddle extends CommandGroup {
+public class AutoRight extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public AutoMiddle() {
+  public AutoRight() {
     System.out.print("Hello world!");
     addSequential(new MoveBack());
-    addSequential(new MoveRight());
+    addSequential(new MoveLeft());
     addSequential(new FollowAutonomous());
     addSequential(new SpinupAuto());
     addSequential(new ThrowingAutonomous());

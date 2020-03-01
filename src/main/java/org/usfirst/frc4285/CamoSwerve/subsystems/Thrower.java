@@ -46,16 +46,22 @@ public class Thrower extends Subsystem {
 
     d = 55 / Math.tan(Math.toRadians(a1+a2)); // Calculates the distance between camera and target
     
-    power = 4.06 + 0.346*d + -0.000475*(d*d);
+    power = 4.06 + 0.346*d + -0.000475*(d*d) - 4;
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
     throwermotor.set(-(int)power);
 
     System.out.println(-(int)power);
   }
 
+  public void throwerauto(){
+    throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
+
+    throwermotor.set(-0.65);
+  }
+
   public void loadshooter() {
       feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
-      feedmotor.set(0.8);
+      feedmotor.set(1.0);
     }
 
   public void loadstack() {

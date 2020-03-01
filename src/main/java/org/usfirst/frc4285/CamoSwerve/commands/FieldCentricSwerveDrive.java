@@ -33,15 +33,16 @@ public class FieldCentricSwerveDrive extends Command {
 		if (Robot.oi.getLeftJoyButton(7)) {
 			originHeading = RobotMap.navX.getFusedHeading();
 		}
-        /*
+
 		double strafe = Robot.oi.leftJoy.getX();
 		double forward = Robot.oi.leftJoy.getY() * -1;
 		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-		*/
+
+		/*
 		double strafe = Robot.oi.controller.getRawAxis(0) * -1;
 		double forward = Robot.oi.controller.getRawAxis(1);
 		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE * -1;
-		
+		*/
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < DEADZONE) strafe = 0.0;
 		if (Math.abs(forward) < DEADZONE) forward = 0.0;
@@ -62,11 +63,12 @@ public class FieldCentricSwerveDrive extends Command {
         	// The calculations correct the forward and strafe values for field centric attitude. 
 
     		// Rotate the velocity vector from the joystick by the difference between our
-    		// current orientation and the current origin heading
+			// current orientation and the current origin heading
+
     		double originCorrection = Math.toRadians(originHeading - RobotMap.navX.getFusedHeading());
     		double temp = forward * Math.cos(originCorrection) - strafe * Math.sin(originCorrection);
     		strafe = strafe * Math.cos(originCorrection) + forward * Math.sin(originCorrection);
-    		forward = temp;
+			forward = temp;
 		}
 	
         Robot.drive.swerveDrive(strafe, forward, omega);

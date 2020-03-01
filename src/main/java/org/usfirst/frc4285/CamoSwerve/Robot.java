@@ -53,7 +53,8 @@ public class Robot extends TimedRobot {
         ballpickup = new Ballpickup();
         turret = new Turret();
         thrower = new Thrower();
-          
+        autonomousCommand = new AutoRight();
+
         //OI is always last!!
         oi = new OI();
 
@@ -98,7 +99,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+        // autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }

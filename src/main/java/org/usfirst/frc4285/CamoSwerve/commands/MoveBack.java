@@ -7,10 +7,16 @@
 
 package org.usfirst.frc4285.CamoSwerve.commands;
 
+import org.usfirst.frc4285.CamoSwerve.Robot;
+import org.usfirst.frc4285.CamoSwerve.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveBack extends Command {
+  private double originHeading = 0.0;
+
   public MoveBack() {
+    requires(Robot.drive);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -18,17 +24,25 @@ public class MoveBack extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    originHeading = Robot.zeroHeading;
+    originHeading = RobotMap.navX.getFusedHeading();
+    setTimeout(4);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double strafe = 0.0;
+		double forward = -0.2;
+    double omega = -0.0005;
+    
+    Robot.drive.swerveDrive(strafe, forward, omega);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true

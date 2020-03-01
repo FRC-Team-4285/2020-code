@@ -11,9 +11,9 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveRight extends Command {
-  public MoveRight() {
-    requires(Robot.drive);
+public class SpinupAuto extends Command {
+  public SpinupAuto() {
+    requires(Robot.thrower);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -21,17 +21,13 @@ public class MoveRight extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(1.7);
+    setTimeout(1.35);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double strafe = 0.2;
-		double forward = 0.0;
-    double omega = 0.0;
-    
-    Robot.drive.swerveDrive(strafe, forward, omega);
+    Robot.thrower.throwerauto();
   }
 
   // Make this return true when this Command no longer needs to run execute()
