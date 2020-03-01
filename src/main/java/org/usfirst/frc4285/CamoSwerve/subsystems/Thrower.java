@@ -46,7 +46,12 @@ public class Thrower extends Subsystem {
 
     d = 55 / Math.tan(Math.toRadians(a1+a2)); // Calculates the distance between camera and target
     
-    power = 4.06 + 0.346*d + -0.000475*(d*d);
+    
+    // Set motor power for shooting the turret.
+    // Over time, the turret occasionally gets less accurate
+    // use the power nerf to adjust for that.
+    int power_nerf = 4;
+    power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
     throwermotor.set(-(int)power);
 

@@ -26,10 +26,12 @@ public class BallIntakeDrop extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ballpickup.ballput();
-    if (timeSinceInitialized() > 0.75) {
+    if (timeSinceInitialized() > 0.0) {
+      Robot.ballpickup.ballput();
+    }
+    if (timeSinceInitialized() > 1) {
       Robot.ballpickup.ballrun();
-      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

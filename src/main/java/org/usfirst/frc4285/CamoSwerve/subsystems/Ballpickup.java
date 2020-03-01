@@ -37,8 +37,8 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setFF(0.0);
     pickupflipPID.setOutputRange(-.35, .35);
 
-    // pickupflipPID.setReference(108.76432800292969, ControlType.kPosition);
-    pickupflipmotor.set(0.35);
+    // pickupflipPID.setReference(140, ControlType.kPosition);
+    // pickupflipmotor.set(0.35);
     System.out.println(pickupflipencoder.getPosition());
   }
 
@@ -55,7 +55,7 @@ public class Ballpickup extends Subsystem {
     pickupflipPID.setOutputRange(-.35, .35);
 
     // pickupflipPID.setReference(0, ControlType.kPosition);
-    pickupflipmotor.set(-0.35);
+    // pickupflipmotor.set(-0.35);
     System.out.println(pickupflipencoder.getPosition());
 
     // ballpickupmotor = new CANSparkMax(RobotMap.BALL_PICKUP_MOTOR_ID, MotorType.kBrushless);

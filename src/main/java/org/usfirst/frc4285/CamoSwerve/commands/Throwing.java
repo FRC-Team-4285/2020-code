@@ -23,7 +23,6 @@ public class Throwing extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    waitCommand = new WaitCommand("thrower", 1.35);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -34,9 +33,9 @@ public class Throwing extends Command {
     }
     if (timeSinceInitialized() > 0.5) {
       Robot.thrower.thrown();
-      Robot.thrower.loadstack();
+      Robot.thrower.loadshooter();
     }  
-    if(timeSinceInitialized() > 1.35) {
+    if(timeSinceInitialized() > 1) {
       Robot.thrower.thrown();
       Robot.thrower.loadstack();
       Robot.thrower.loadshooter();

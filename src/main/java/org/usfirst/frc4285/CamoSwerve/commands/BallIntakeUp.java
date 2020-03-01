@@ -26,9 +26,11 @@ public class BallIntakeUp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ballpickup.ballin();
+    if (timeSinceInitialized() > 0.0) {
+      Robot.ballpickup.ballin();
+    }
     if (timeSinceInitialized() > 0.75) {
-    Robot.ballpickup.ballrun();
+      Robot.ballpickup.ballrun();
     }
   }
 

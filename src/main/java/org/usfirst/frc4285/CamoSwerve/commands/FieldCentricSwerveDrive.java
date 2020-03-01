@@ -34,9 +34,9 @@ public class FieldCentricSwerveDrive extends Command {
 			originHeading = RobotMap.navX.getFusedHeading();
 		}
         
-		double strafe = Robot.oi.leftJoy.getX();
-		double forward = Robot.oi.leftJoy.getY() * -1;
-		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
+		double strafe = Robot.oi.rightJoy.getX();
+		double forward = Robot.oi.rightJoy.getY() * -1;
+		double omega = Robot.oi.rightJoy.getZ() * OMEGA_SCALE;
 		/*
 		double strafe = Robot.oi.controller.getRawAxis(0);
 		double forward = Robot.oi.controller.getRawAxis(1) * -1;
