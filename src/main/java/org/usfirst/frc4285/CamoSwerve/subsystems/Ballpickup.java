@@ -8,26 +8,71 @@
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 
 /**
  * Add your docs here.
  */
 public class Ballpickup extends Subsystem {
-  private TalonSRX ballpickupmotor;
+  private CANSparkMax ballpickupmotor;
+  private CANSparkMax pickupflipmotor;
+  private CANPIDController pickupflipPID;
+  private CANEncoder pickupflipencoder; 
 
-  public void pickup (boolean w){
-    ballpickupmotor = new TalonSRX(RobotMap.Ball_Pickup_ID);
+  public void ballin (){
+    pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
+    pickupflipencoder = new CANEncoder(pickupflipmotor);
+    pickupflipPID = pickupflipmotor.getPIDController();
 
-    ballpickupmotor.set(ControlMode.PercentOutput, 0.2);
+    pickupflipPID.setP(0.1);
+    pickupflipPID.setI(0.0);
+    pickupflipPID.setD(0.0);
+    pickupflipPID.setIZone(0.0);
+    pickupflipPID.setFF(0.0);
+    pickupflipPID.setOutputRange(-.1, .1);
+
+    //pickupflipPID.setReference(0, ControlType.kPosition);
+    pickupflipmotor.set(0.1);
+    System.out.println(pickupflipencoder.getPosition());
+
+    ballpickupmotor = new CANSparkMax(RobotMap.Ball_Pickup_ID, MotorType.kBrushless);
+
+    ballpickupmotor.set(0.8);
   }
 
-  public void pickstop (boolean w){
-    ballpickupmotor = new TalonSRX(RobotMap.Ball_Pickup_ID);
+  public void ballput (){
+    pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
+    pickupflipencoder = new CANEncoder(pickupflipmotor);
+    pickupflipPID = pickupflipmotor.getPIDController();
 
-    ballpickupmotor.set(ControlMode.PercentOutput, 0.0);
+    pickupflipPID.setP(0.1);
+    pickupflipPID.setI(0.0);
+    pickupflipPID.setD(0.0);
+    pickupflipPID.setIZone(0.0);
+    pickupflipPID.setFF(0.0);
+    pickupflipPID.setOutputRange(-.1, .1);
+
+    //pickupflipPID.setReference(0, ControlType.kPosition);
+    pickupflipmotor.set(-0.1);
+    System.out.println(pickupflipencoder.getPosition());
+
+    ballpickupmotor = new CANSparkMax(RobotMap.Ball_Pickup_ID, MotorType.kBrushless);
+
+    ballpickupmotor.set(0.8);
+  }
+
+  public void stop (){
+    ballpickupmotor = new CANSparkMax(RobotMap.Ball_Pickup_ID, MotorType.kBrushless);
+    pickupflipmotor = new CANSparkMax(RobotMap.Pickup_Flip_ID, MotorType.kBrushless);
+
+    ballpickupmotor.set(0.0);
+    pickupflipmotor.set(0.0);
   }
 
   // Put methods for controlling this subsystem

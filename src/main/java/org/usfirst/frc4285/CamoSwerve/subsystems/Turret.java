@@ -15,6 +15,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * Add your docs here.
@@ -22,10 +25,15 @@ import org.usfirst.frc4285.CamoSwerve.RobotMap;
 public class Turret extends Subsystem {
 
   private CANSparkMax turretmotor;
-  private CANEncoder turretencoder;
   private CANPIDController turretPID;
+  private CANEncoder turretencoder;
 
-  public void follow(){
+  public void following(){
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    double x = tx.getDouble(0.0);
+    double target = turretencoder.getPosition() - x*.2284338889;
+    
     turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
     turretencoder = new CANEncoder(turretmotor);
     turretPID = turretmotor.getPIDController();
@@ -37,7 +45,49 @@ public class Turret extends Subsystem {
     turretPID.setFF(0.0);
     turretPID.setOutputRange(-.1, .1);
     
+    turretPID.setReference(target, ControlType.kPosition);
+
+    /*
+    if(turretencoder.getPosition() < 20 && turretencoder.getPosition() > -20){
+
+      if(target > 0.25){
+        turretmotor.set(-0.1);
+      }
+
+      if(target < -0.25){
+        turretmotor.set(0.1);
+      }
+    }
+
+    if(turretencoder.getPosition() > 20){
+    
+    }
+    */
   }
+  public void left(){
+    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);    
+    turretencoder = new CANEncoder(turretmotor);
+
+    turretmotor.set(-0.2);
+    System.out.println(turretencoder.getPosition());
+  }
+
+  public void right(){
+    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
+    turretencoder = new CANEncoder(turretmotor);
+
+    turretmotor.set(0.2);
+    System.out.println(turretencoder.getPosition());
+  }
+
+  public void stop(){
+    turretmotor = new CANSparkMax(RobotMap.TURRET_ID, MotorType.kBrushless);
+    turretencoder = new CANEncoder(turretmotor);
+
+    turretmotor.set(0.0);
+    System.out.println(turretencoder.getPosition());
+  }
+  
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 

@@ -12,28 +12,45 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Add your docs here.
  */
 public class Thrower extends Subsystem {
 
-  private CANSparkMax throwermotor1;
-  private CANSparkMax throwermotor2;
+  private CANSparkMax throwermotor;
+  private CANSparkMax feedmotor;
+  private CANSparkMax stackmotor;
   
-  public void thrown(double speed){
-    throwermotor1 = new CANSparkMax(RobotMap.THROWER_MOTOR_1_ID, MotorType.kBrushless);
+  public void thrown(){
+    throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
 
-    throwermotor1.set(speed);
+    throwermotor.set(-0.6);
   }
+  
+  public void loadshooter() {
+      feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
 
-  public void loadshooter(double speed){
-      throwermotor2 = new CANSparkMax(RobotMap.THROWER_MOTOR_2_ID, MotorType.kBrushless);
+      Timer.delay(0.25);
+      feedmotor.set(0.8);
+    }
+    
+  public void loadstack(){
+    stackmotor = new CANSparkMax(RobotMap.STACK_MOTOR_ID, MotorType.kBrushless);
 
-      if(speed > .25){
-        throwermotor2.set(.5);
-      }
+    Timer.delay(0.5);
+    stackmotor.set(0.75);
   }
+  
+  public void stop(){
+    throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
+
+    throwermotor.set(0);
+    feedmotor.set(0);
+    stackmotor.set(0);
+  }
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

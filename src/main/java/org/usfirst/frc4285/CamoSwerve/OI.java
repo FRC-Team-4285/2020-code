@@ -21,31 +21,75 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.*;
 
 public class OI {
     public Joystick leftJoy;
     public Joystick rightJoy;
-    public XboxController controller;
+    public Joystick controller;
+
+    public Button button1;
+    public Button button2;
+    public Button button3;
+    public Button button4;
+    public Button button5;
+    public Button button6;
 
     public  OI(){
         leftJoy = new Joystick(RobotMap.LEFT_JOYSTICK);
         rightJoy = new Joystick(RobotMap.RIGHT_JOYSTICK);
-        controller = new XboxController(RobotMap.CONTROLLER);
+        controller = new Joystick(RobotMap.CONTROLLER);
+
+        button1 = new JoystickButton(leftJoy, 3);
+        button2 = new JoystickButton(rightJoy, 5);
+        button3 = new JoystickButton(rightJoy, 4);
+        button4 = new JoystickButton(rightJoy, 3);
+        button5 = new JoystickButton(leftJoy, 4);
+        button6 = new JoystickButton(leftJoy, 5);
+
+        button1.whenPressed(new Throwing());
+        button2.whenPressed(new Turretright());
+        button3.whenPressed(new Turretleft());
+        button4.whenPressed(new Follow());
+        button5.whenPressed(new Pickupballput());
+        button6.whenPressed(new Pickupball());
     }
 
     public boolean getLeftJoyButton (int buttonNumber){
         return leftJoy.getRawButton(buttonNumber);
     }
 
+    public boolean getbuttond(){
+        return leftJoy.getRawButtonReleased(3);
+    }
+
+    public boolean getbuttonr(){
+        return rightJoy.getRawButtonReleased(5);
+    }
+
+    public boolean getbuttonl(){
+        return rightJoy.getRawButtonReleased(4);
+    }
+
+    public boolean getbuttonreleased6(){
+        return leftJoy.getRawButtonReleased(5);
+    }
+
+    public boolean getbuttonreleased5(){
+        return leftJoy.getRawButtonReleased(4);
+    }
+    /*
     public double getRightTrigger (){
         return controller.getRawAxis(3);
     }
-
+    */
+    /*
     public boolean getcontrollerAbuttonpress (){
-        return controller.getAButtonPressed();
+        return controller.getRawButton(1);
     }
 
     public boolean getcontrollerAbuttonrelease (){
-        return controller.getAButtonReleased();
+        return controller.getRawButton(2);
     }
+    */
 }

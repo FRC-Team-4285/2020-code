@@ -36,15 +36,15 @@ public class FieldCentricSwerveDrive extends Command {
 
 		double originOffset = 360 - originHeading;
 		originCorr = RobotMap.navX.getFusedHeading() + originOffset;
-
+		/*
 		double strafe = Robot.oi.leftJoy.getX();
 		double forward = Robot.oi.leftJoy.getY() * -1;
 		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-		/*
+		*/
 		double strafe = Robot.oi.controller.getRawAxis(0);
 		double forward = Robot.oi.controller.getRawAxis(1) * -1;
 		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE;
-       	*/
+    
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < DEADZONE) strafe = 0.0;
 		if (Math.abs(forward) < DEADZONE) forward = 0.0;
