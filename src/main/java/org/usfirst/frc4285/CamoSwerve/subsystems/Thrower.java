@@ -9,6 +9,8 @@ package org.usfirst.frc4285.CamoSwerve.subsystems;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
@@ -26,6 +28,9 @@ public class Thrower extends Subsystem {
   private CANSparkMax throwermotor;
   private CANSparkMax feedmotor;
   private CANSparkMax stackmotor;
+  private CANEncoder throwermotorEncoder;
+  private CANEncoder feedmotorEncoder;
+  private CANEncoder stackmotorEncoder;
   private NetworkTable table;
   private double a1;
   private double a2;
@@ -34,9 +39,18 @@ public class Thrower extends Subsystem {
   private double d;
   private double power;
 
-  public void thrown(){
+  public Thrower() {
+    feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
+    feedmotorEncoder = new CANEncoder(feedmotor);
+
     throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
-    
+    throwermotorEncoder = new CANEncoder(throwermotor);
+
+    stackmotor = new CANSparkMax(RobotMap.STACK_MOTOR_ID, MotorType.kBrushless);    
+    stackmotorEncoder = new CANEncoder(stackmotor);
+  }
+
+  public void thrown(){
     table = NetworkTableInstance.getDefault().getTable("limelight");
     final NetworkTableEntry ty = table.getEntry("ty");
     a1 = 12; // Angel of camera from the horizontal in degrees
@@ -45,34 +59,30 @@ public class Thrower extends Subsystem {
     h2 = 82; // Height of tower's tape to ground in inches
 
     d = 55 / Math.tan(Math.toRadians(a1+a2)); // Calculates the distance between camera and target
-    
-    
+
     // Set motor power for shooting the turret.
     // Over time, the turret occasionally gets less accurate
     // use the power nerf to adjust for that.
     int power_nerf = 4;
     power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
-    throwermotor.set(-(int)power);
+    power = -(((int)power) / 100.0) * 1.75;
 
-    System.out.println(-(int)power);
+    if (throwermotor.get() != power) {
+      throwermotor.set(power);
+    }
+    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
   }
 
   public void loadshooter() {
-      feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
       feedmotor.set(0.8);
     }
 
   public void loadstack() {
-    
-    stackmotor = new CANSparkMax(RobotMap.STACK_MOTOR_ID, MotorType.kBrushless);
-
     stackmotor.set(1.0);
   }
 
   public void Hail() {
-    throwermotor = new CANSparkMax(RobotMap.THROWER_MOTOR_ID, MotorType.kBrushless);
-
     throwermotor.set(-0.78);
   }
 
@@ -81,7 +91,7 @@ public class Thrower extends Subsystem {
     feedmotor.set(0);
     stackmotor.set(0);
   }
-  
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

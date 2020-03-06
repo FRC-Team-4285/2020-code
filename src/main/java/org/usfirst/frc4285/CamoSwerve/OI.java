@@ -165,6 +165,15 @@ public class OI {
         return leftJoy.getRawButton(buttonNumber);
     }
 
+    public boolean getRightJoyButton (int buttonNumber) {
+        /*
+         * Returns the activity status of the button number
+         * associated with 'buttonNumber'.
+         */
+
+        return rightJoy.getRawButton(buttonNumber);
+    }
+
     public boolean getButtonHailMary() {
         /*
          * Returns the activity status of the button
