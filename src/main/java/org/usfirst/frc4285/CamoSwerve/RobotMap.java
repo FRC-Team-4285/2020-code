@@ -39,6 +39,9 @@ public class RobotMap {
   public static final int BALL_PICKUP_MOTOR_ID = 14;
   public static final int Pickup_Flip_ID = 13;
 
+  public static final int CLIMB_MOTOR_ID = 15;
+  public static final int COLOR_WHEEL_MOTOR_ID = 16;
+
   public static final int LIFT_MOTOR_ID = 0;
 
 

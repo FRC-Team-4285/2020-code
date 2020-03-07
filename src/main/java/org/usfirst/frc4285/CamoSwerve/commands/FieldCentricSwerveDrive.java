@@ -36,7 +36,7 @@ public class FieldCentricSwerveDrive extends Command {
 
 		// One Joystick
 		double strafe = Robot.oi.rightJoy.getX() * -1;
-		double forward = Robot.oi.rightJoy.getY();
+		double forward = Robot.oi.rightJoy.getY() * -1;
 		double omega = Robot.oi.rightJoy.getZ() * OMEGA_SCALE;
 
 		/* One Joystick

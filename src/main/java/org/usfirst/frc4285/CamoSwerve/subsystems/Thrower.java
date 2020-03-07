@@ -53,25 +53,29 @@ public class Thrower extends Subsystem {
   public void thrown(){
     table = NetworkTableInstance.getDefault().getTable("limelight");
     final NetworkTableEntry ty = table.getEntry("ty");
+    // NetworkTableEntry ledMode = table.getEntry("ledMode");
+    // ledMode.forceSetNumber(1);
+    
     a1 = 12; // Angel of camera from the horizontal in degrees
     a2 = ty.getDouble(0.0); // Angel of tower to camera found with limelight
     h1 = 27; // Height of limelight to ground in inches
     h2 = 82; // Height of tower's tape to ground in inches
 
     d = 55 / Math.tan(Math.toRadians(a1+a2)); // Calculates the distance between camera and target
-
+  
     // Set motor power for shooting the turret.
     // Over time, the turret occasionally gets less accurate
     // use the power nerf to adjust for that.
-    int power_nerf = 4;
-    power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
-    // power = 25.9*Math.pow(Math.E, 0.00368*d);
-    power = -(((int)power) / 100.0) * 1.75;
 
-    if (throwermotor.get() != power) {
-      throwermotor.set(power);
-    }
-    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
+    // int power_nerf = 4;
+    // power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
+    // power = 25.9*Math.pow(Math.E, 0.00368*d);
+    power = -0.61;
+  
+    // power = -(((int)power) / 100.0) * 1.75;
+
+    throwermotor.set(power);
+    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity() + "; TEMP: ");
   }
 
   public void loadshooter() {
