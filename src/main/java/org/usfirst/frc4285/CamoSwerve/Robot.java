@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
         ballpickup = new Ballpickup();
         turret = new Turret();
         thrower = new Thrower();
+        lift = new Lift();
           
         //OI is always last!!
         oi = new OI();
