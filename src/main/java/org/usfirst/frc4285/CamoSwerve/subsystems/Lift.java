@@ -21,13 +21,19 @@ public class Lift extends Subsystem {
 
   private CANSparkMax liftmotor;
 
-  public void lift (boolean m){
+  public void lift (){
     liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
 
-    liftmotor.set(0.5);
+    liftmotor.set(0.2);
   }
 
-  public void liftstop (boolean m){
+  public void lower (){
+    liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
+
+    liftmotor.set(-0.2);
+  }
+
+  public void liftstop (){
     liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
 
     liftmotor.set(0.0);
