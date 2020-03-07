@@ -54,6 +54,7 @@ public class Thrower extends Subsystem {
   }
 
   public void thrown(){
+    
     table = NetworkTableInstance.getDefault().getTable("limelight");
     final NetworkTableEntry ty = table.getEntry("ty");
     // NetworkTableEntry ledMode = table.getEntry("ledMode");
@@ -85,13 +86,14 @@ public class Thrower extends Subsystem {
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
 
-    throwerPID.setReference(-2650.0, ControlType.kVelocity);
+    throwerPID.setReference(-4000.0, ControlType.kVelocity);
     
     
     // power = getPercentFromRPM(-2650.0);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
 
     // throwermotor.set(power);
+    
   }
 /*
   public double getPercentFromRPM(double wantedRpm) {

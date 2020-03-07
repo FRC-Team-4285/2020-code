@@ -41,6 +41,8 @@ public class OI {
     public Button btnBallIntakeUp;
     public Button btnBallIntakeDrop;
     public Button btnHailMary;
+    public Button btnLift;
+    public Button btnLower;
     public Button button7;
     public Timer time;
 
@@ -84,6 +86,14 @@ public class OI {
         // End game shot
         btnHailMary = new JoystickButton(leftJoy, 5);
         btnHailMary.whenPressed(new HailMary());
+
+        // Lifts elevator
+        btnLift = new JoystickButton(rightJoy, 4);
+        btnLift.whenPressed(new Lifting());
+
+        // Lowers elevator
+        btnLower = new JoystickButton(rightJoy, 3);
+        btnLower.whenPressed(new Lowering());
 
         //////////////////////////////////////
         ///     PENDING IMPLEMENTATION     ///
@@ -181,6 +191,22 @@ public class OI {
          */
 
         return leftJoy.getRawButtonReleased(5);
+    }
+
+    public boolean getButtonLift() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the elevator to go up.
+         */
+        return rightJoy.getRawButtonReleased(4);
+    }
+
+    public boolean getButtonLower() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the elevator to go down.
+         */
+        return rightJoy.getRawButtonReleased(3);
     }
 
     public double getRightTrigger () {
