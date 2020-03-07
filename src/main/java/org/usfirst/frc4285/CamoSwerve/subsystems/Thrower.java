@@ -76,24 +76,24 @@ public class Thrower extends Subsystem {
     // power = -0.61;
   
     // power = -(((int)power) / 100.0) * 1.75;
-    /*
+    
     throwerPID = throwermotor.getPIDController();
-    throwerPID.setP(1);
-    throwerPID.setI(0.00);
+    throwerPID.setP(0.003);
+    throwerPID.setI(0.0);
     throwerPID.setD(0.0);
     throwerPID.setIZone(0.0);
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
 
     throwerPID.setReference(-2650.0, ControlType.kVelocity);
-    */
     
-    power = getPercentFromRPM(-2650.0);
+    
+    // power = getPercentFromRPM(-2650.0);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
 
-    throwermotor.set(power);
+    // throwermotor.set(power);
   }
-
+/*
   public double getPercentFromRPM(double wantedRpm) {
     double actualRpm = throwermotorEncoder.getVelocity();
     double rpmDifference = wantedRpm - actualRpm;
@@ -115,7 +115,7 @@ public class Thrower extends Subsystem {
 
     return power;
   }
-
+*/
   public void loadshooter() {
     feedmotor.set(0.8);
   }
