@@ -177,16 +177,19 @@ public class Drive extends Subsystem {
     // double angleRF = angle(B, C) + 90;
     // double angleRR = angle(A, C) - 90;
 
-    //If the drive are set to zero facing the front use the following
-    //double angleLF = angle(B, D) - 91;
-    //double angleLR = angle(A, D) + 93;
-    //double angleRF = angle(B, C) - 38;
-    //double angleRR = angle(A, C) + 84;
+    //If the drive are set to zero facing the front use the 
+    // Main Bot
+    double angleLF = angle(B, D) - 91;
+    double angleLR = angle(A, D) + 93;
+    double angleRF = angle(B, C) - 38;
+    double angleRR = angle(A, C) + 84;
 
+    /* Practice Bot
     double angleLF = angle(B, D) - 112;
     double angleLR = angle(A, D) - 85;
     double angleRF = angle(B, C) + 92;
     double angleRR = angle(A, C) + 14;
+    */
     // Compute the maximum speed so that we can scale all the speeds to the range [0, 1]
     double maxSpeed = Collections.max(Arrays.asList(speedLF, speedLR, speedRF, speedRR, 1.0));
 

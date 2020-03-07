@@ -73,7 +73,7 @@ public class FieldCentricSwerveDrive extends Command {
 			Robot.drive.setDriveRightFront(0.0);
 			Robot.drive.setDriveRightRear(0.0);
 			return;
-   		}	
+		}
 
 		if (!Robot.oi.leftJoy.getTrigger()) {
         	// When the Left Joystick trigger is not pressed, The robot is in Field Centric Mode.

@@ -73,26 +73,52 @@ public class Thrower extends Subsystem {
     // int power_nerf = 4;
     // power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
-    power = -0.61;
+    // power = -0.61;
   
     // power = -(((int)power) / 100.0) * 1.75;
+    /*
     throwerPID = throwermotor.getPIDController();
-    throwerPID.setP(0.12);
+    throwerPID.setP(1);
     throwerPID.setI(0.00);
-    throwerPID.setD(0.5);
+    throwerPID.setD(0.0);
     throwerPID.setIZone(0.0);
     throwerPID.setFF(0.0);
-    throwerPID.setOutputRange(-1, 1);
+    throwerPID.setOutputRange(-1.0, 0.0);
 
-    throwerPID.setReference(2600.0, ControlType.kVelocity);
+    throwerPID.setReference(-2650.0, ControlType.kVelocity);
+    */
+    
+    power = getPercentFromRPM(-2650.0);
+    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
 
-    // throwermotor.set(power);
-    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity() + "; TEMP: ");
+    throwermotor.set(power);
+  }
+
+  public double getPercentFromRPM(double wantedRpm) {
+    double actualRpm = throwermotorEncoder.getVelocity();
+    double rpmDifference = wantedRpm - actualRpm;
+    double powerOffset = 0.1;
+    //if rpmDifference
+    if (rpmDifference < 40) {
+      power = power - powerOffset;
+    }
+    else if (rpmDifference > 40) {
+      power = power + powerOffset;
+    }
+
+    if (power > 0.0) {
+      power = 0.0;
+    }
+    else if (power < -1.0) {
+      power = -1.0;
+    }
+
+    return power;
   }
 
   public void loadshooter() {
-      feedmotor.set(0.8);
-    }
+    feedmotor.set(0.8);
+  }
 
   public void loadstack() {
     stackmotor.set(1.0);
