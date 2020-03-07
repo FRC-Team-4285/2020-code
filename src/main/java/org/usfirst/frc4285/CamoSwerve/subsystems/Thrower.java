@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
@@ -31,6 +33,7 @@ public class Thrower extends Subsystem {
   private CANEncoder throwermotorEncoder;
   private CANEncoder feedmotorEncoder;
   private CANEncoder stackmotorEncoder;
+  private CANPIDController throwerPID;
   private NetworkTable table;
   private double a1;
   private double a2;
@@ -73,8 +76,17 @@ public class Thrower extends Subsystem {
     power = -0.61;
   
     // power = -(((int)power) / 100.0) * 1.75;
+    throwerPID = throwermotor.getPIDController();
+    throwerPID.setP(0.12);
+    throwerPID.setI(0.00);
+    throwerPID.setD(0.5);
+    throwerPID.setIZone(0.0);
+    throwerPID.setFF(0.0);
+    throwerPID.setOutputRange(-1, 1);
 
-    throwermotor.set(power);
+    throwerPID.setReference(2600.0, ControlType.kVelocity);
+
+    // throwermotor.set(power);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity() + "; TEMP: ");
   }
 
