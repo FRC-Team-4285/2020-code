@@ -43,7 +43,9 @@ public class OI {
     public Button btnHailMary;
     public Button btnLift;
     public Button btnLower;
-    public Button button7;
+    public Button btnLiftToColorWheel;
+    public Button btnLiftToStartingPosition;
+    public Button btnSpinColorWheel;
     public Timer time;
 
     public  OI() {
@@ -94,6 +96,18 @@ public class OI {
         // Lowers elevator
         btnLower = new JoystickButton(rightJoy, 3);
         btnLower.whenPressed(new Lowering());
+
+        // Lifts Elevator to Color Wheel
+        btnLiftToStartingPosition = new JoystickButton(rightJoy, 10);
+        btnLiftToStartingPosition.whenPressed(new LiftPosStartingConfig());
+
+        // Spins Color Wheel
+        btnLiftToColorWheel = new JoystickButton(rightJoy, 11);
+        btnLiftToColorWheel.whenPressed(new LiftPosColorWheel());
+
+        // Spins Color Wheel
+        btnSpinColorWheel = new JoystickButton(rightJoy, 9);
+        btnSpinColorWheel.whenPressed(new SpinColorWheel());
 
         //////////////////////////////////////
         ///     PENDING IMPLEMENTATION     ///
@@ -193,7 +207,7 @@ public class OI {
         return leftJoy.getRawButtonReleased(5);
     }
 
-    public boolean getButtonLift() {
+    public boolean getButtonLiftRaise() {
         /*
          * Returns the activity status of the button
          * mapped to enable the elevator to go up.
@@ -201,7 +215,7 @@ public class OI {
         return rightJoy.getRawButtonReleased(4);
     }
 
-    public boolean getButtonLower() {
+    public boolean getButtonLiftLower() {
         /*
          * Returns the activity status of the button
          * mapped to enable the elevator to go down.
@@ -215,6 +229,30 @@ public class OI {
          * trigger.
          */
         return controller.getRawAxis(3);
+    }
+
+    public boolean getButtonSpinColorWheel() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the elevator to go down.
+         */
+        return rightJoy.getRawButtonReleased(9);
+    }
+
+    public boolean getButtonLiftToColorWheel() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the elevator to go down.
+         */
+        return rightJoy.getRawButtonReleased(11);
+    }
+
+    public boolean getButtonLiftToStartingPosition() {
+        /*
+         * Returns the activity status of the button
+         * mapped to enable the elevator to go down.
+         */
+        return rightJoy.getRawButtonReleased(12);
     }
 
     public boolean getcontrollerAbuttonpress () {

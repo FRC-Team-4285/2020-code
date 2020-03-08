@@ -27,10 +27,12 @@ public class Lift extends Subsystem {
   private CANEncoder liftencoder;
   private CANPIDController liftPID;
 
-  public void lift (){
+  public Lift() {
     liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
     liftencoder = new CANEncoder(liftmotor);
+  }
 
+  public void raise (){
     liftPID = liftmotor.getPIDController();
     liftPID.setP(0.1);
     liftPID.setI(0.0);
@@ -43,13 +45,10 @@ public class Lift extends Subsystem {
 
     System.out.println("Elevator position:" + liftencoder.getPosition());
 
-    liftmotor.set(0.2);
+    liftmotor.set(-0.2);
   }
 
-  public void lower (){
-    liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
-    liftencoder = new CANEncoder(liftmotor);
-
+  public void lower() {
     liftPID = liftmotor.getPIDController();
     liftPID.setP(0.1);
     liftPID.setI(0.0);
@@ -61,13 +60,53 @@ public class Lift extends Subsystem {
     // liftPID.setReference(0.0, ControlType.kPosition);
 
     // System.out.println("Elevator position:" + liftencoder.getPosition());
-
-    liftmotor.set(-0.2);
+  
+    liftmotor.set(0.2);
   }
 
-  public void liftstop (){
-    liftmotor = new CANSparkMax(RobotMap.LIFT_MOTOR_ID, MotorType.kBrushless);
+  public void moveToColorWheel() {
+    liftPID = liftmotor.getPIDController();
+    liftPID.setP(0.1);
+    liftPID.setI(0.0);
+    liftPID.setD(0.0);
+    liftPID.setIZone(0.0);
+    liftPID.setFF(0.0);
+    liftPID.setOutputRange(-0.2, 0.2);
+  
+    liftPID.setReference(-40.0, ControlType.kPosition);
 
+    System.out.println("Elevator position:" + liftencoder.getPosition());
+  }
+
+  public void moveToStartingConfig() {
+    liftPID = liftmotor.getPIDController();
+    liftPID.setP(0.1);
+    liftPID.setI(0.0);
+    liftPID.setD(0.0);
+    liftPID.setIZone(0.0);
+    liftPID.setFF(0.0);
+    liftPID.setOutputRange(-0.2, 0.2);
+  
+    liftPID.setReference(0.0, ControlType.kPosition);
+
+    System.out.println("Elevator position:" + liftencoder.getPosition());
+  }
+
+  /*public void moveToStartingConfig() {
+    liftPID = liftmotor.getPIDController();
+    liftPID.setP(0.1);
+    liftPID.setI(0.0);
+    liftPID.setD(0.0);
+    liftPID.setIZone(0.0);
+    liftPID.setFF(0.0);
+    liftPID.setOutputRange(-0.2, 0.2);
+  
+    liftPID.setReference(0.0, ControlType.kPosition);
+
+    System.out.println("Elevator position:" + liftencoder.getPosition());
+  }*/
+
+  public void liftstop (){
     liftmotor.set(0.0);
   }
   

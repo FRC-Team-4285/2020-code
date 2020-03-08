@@ -7,7 +7,6 @@
 
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import com.revrobotics.CANSparkMax;

@@ -11,8 +11,12 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Lowering extends Command {
-  public Lowering() {
+import org.usfirst.frc4285.CamoSwerve.subsystems.*;
+
+public class LiftPosStartingConfig extends Command {
+  Lift m;
+
+  public LiftPosStartingConfig() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lift);
@@ -22,17 +26,17 @@ public class Lowering extends Command {
   @Override
   protected void initialize() {
   }
-
+  
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.lower();
+    Robot.lift.moveToStartingConfig();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonLiftLower();
+    return Robot.oi.getButtonLiftToStartingPosition();
   }
 
   // Called once after isFinished returns true
@@ -45,5 +49,6 @@ public class Lowering extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

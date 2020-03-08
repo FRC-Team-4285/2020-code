@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     public static Turret turret;
     public static Thrower thrower;
     public static Lift lift;
+    public static ColorWheel colorwheel;
     public static OI oi;
   
     Command autonomousCommand;
@@ -54,6 +55,7 @@ public class Robot extends TimedRobot {
         turret = new Turret();
         thrower = new Thrower();
         lift = new Lift();
+        colorwheel = new ColorWheel();
           
         //OI is always last!!
         oi = new OI();

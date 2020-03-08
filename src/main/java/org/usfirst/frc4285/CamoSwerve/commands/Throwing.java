@@ -10,10 +10,9 @@ package org.usfirst.frc4285.CamoSwerve.commands;
 import org.usfirst.frc4285.CamoSwerve.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.WaitCommand;
+
 
 public class Throwing extends Command {
-  private WaitCommand waitCommand;
 
   public Throwing() {
     // Use requires() here to declare subsystem dependencies
@@ -35,7 +34,7 @@ public class Throwing extends Command {
       Robot.thrower.thrown();
       Robot.thrower.loadshooter();
     }  
-    if(timeSinceInitialized() > 1) {
+    if(timeSinceInitialized() > 1.5) {
       Robot.thrower.thrown();
       Robot.thrower.loadstack();
       Robot.thrower.loadshooter();

@@ -61,7 +61,7 @@ public class Thrower extends Subsystem {
     // NetworkTableEntry ledMode = table.getEntry("ledMode");
     // ledMode.forceSetNumber(1);
     
-    a1 = 12; // Angel of camera from the horizontal in degrees
+    a1 = 23; // Angel of camera from the horizontal in degrees
     a2 = ty.getDouble(0.0); // Angel of tower to camera found with limelight
     h1 = 27; // Height of limelight to ground in inches
     h2 = 82; // Height of tower's tape to ground in inches
@@ -76,27 +76,33 @@ public class Thrower extends Subsystem {
     // power = 4.06 + 0.346*d + -0.000475*(d*d) - power_nerf;
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
     // power = -0.61;
+
+    power = -(2454 + -2.83*d + .0157*(d*d));
   
     // power = -(((int)power) / 100.0) * 1.75;
     
     throwerPID = throwermotor.getPIDController();
-    throwerPID.setP(0.0028);
+    // throwerPID.setP(0.0028);
+    throwerPID.setP(0.0032);
     throwerPID.setI(0.0);
-    throwerPID.setD(0.0);
+    throwerPID.setD(1.0);
     throwerPID.setIZone(0.0);
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
 
-    if(d > 100) {
-      throwerPID.setReference(-9000.0, ControlType.kVelocity);
-    }
-    else {
-      throwerPID.setReference(-3000.0, ControlType.kVelocity);
-    }
+    // if(d > 100) {
+    //   throwerPID.setReference(-9000.0, ControlType.kVelocity);
+    // }
+    // else {
+
+
+      throwerPID.setReference(power, ControlType.kVelocity);
+    // }
 
     // power = getPercentFromRPM(-2650.0);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
     SmartDashboard.putNumber("distance", d);
+    SmartDashboard.putNumber("RPM", power);
     // throwermotor.set(power);
     
   }

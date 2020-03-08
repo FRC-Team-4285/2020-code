@@ -30,13 +30,13 @@ public class Lifting extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.lift();
+    Robot.lift.raise();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonLift();
+    return Robot.oi.getButtonLiftRaise();
   }
 
   // Called once after isFinished returns true
