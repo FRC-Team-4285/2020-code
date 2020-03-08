@@ -9,6 +9,7 @@ package org.usfirst.frc4285.CamoSwerve.subsystems;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -79,19 +80,23 @@ public class Thrower extends Subsystem {
     // power = -(((int)power) / 100.0) * 1.75;
     
     throwerPID = throwermotor.getPIDController();
-    throwerPID.setP(0.002);
+    throwerPID.setP(0.0028);
     throwerPID.setI(0.0);
     throwerPID.setD(0.0);
     throwerPID.setIZone(0.0);
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
 
-    throwerPID.setReference(-4000.0, ControlType.kVelocity);
-    
-    
+    if(d > 100) {
+      throwerPID.setReference(-9000.0, ControlType.kVelocity);
+    }
+    else {
+      throwerPID.setReference(-3000.0, ControlType.kVelocity);
+    }
+
     // power = getPercentFromRPM(-2650.0);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
-
+    SmartDashboard.putNumber("distance", d);
     // throwermotor.set(power);
     
   }
@@ -127,7 +132,7 @@ public class Thrower extends Subsystem {
   }
 
   public void Hail() {
-    throwermotor.set(-0.78);
+  throwermotor.set(-0.9);
   }
 
   public void stop() {
