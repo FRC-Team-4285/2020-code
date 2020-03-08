@@ -61,7 +61,7 @@ public class Thrower extends Subsystem {
     // NetworkTableEntry ledMode = table.getEntry("ledMode");
     // ledMode.forceSetNumber(1);
     
-    a1 = 23; // Angel of camera from the horizontal in degrees
+    a1 = 21; // Angel of camera from the horizontal in degrees
     a2 = ty.getDouble(0.0); // Angel of tower to camera found with limelight
     h1 = 27; // Height of limelight to ground in inches
     h2 = 82; // Height of tower's tape to ground in inches
