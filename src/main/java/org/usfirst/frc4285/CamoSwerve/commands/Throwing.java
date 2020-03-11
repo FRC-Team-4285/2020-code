@@ -34,7 +34,7 @@ public class Throwing extends Command {
       Robot.thrower.thrown();
       Robot.thrower.loadshooter();
     }  
-    if(timeSinceInitialized() > 1.5) {
+    if(timeSinceInitialized() > 2.5) {
       Robot.thrower.thrown();
       Robot.thrower.loadstack();
       Robot.thrower.loadshooter();

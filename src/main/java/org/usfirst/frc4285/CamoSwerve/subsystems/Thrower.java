@@ -77,15 +77,27 @@ public class Thrower extends Subsystem {
     // power = 25.9*Math.pow(Math.E, 0.00368*d);
     // power = -0.61;
 
-    power = -(2454 + -2.83*d + .0157*(d*d));
+    //power = -(2256 + -.923*d + .0128*(d*d)); //actual data, the rest are adjusted
+    //power = -(2048 + 1.32*d + .0073*(d*d));
+    //power = -3385;
+    //power = -(2464 + -3.17*d + .0179*(d*d)); //lower power
+    //power = -(1799 + 3.94*d + .00202*(d*d));
+    power = -(2572 + -1.83*d + .0151*(d*d)) - 25; //The golden equation for consistency
+
   
     // power = -(((int)power) / 100.0) * 1.75;
     
     throwerPID = throwermotor.getPIDController();
     // throwerPID.setP(0.0028);
-    throwerPID.setP(0.0032);
+    /*throwerPID.setP(0.0032);
     throwerPID.setI(0.0);
     throwerPID.setD(1.0);
+    throwerPID.setIZone(0.0);
+    throwerPID.setFF(0.0);
+    throwerPID.setOutputRange(-1.0, 0.0);*/
+    throwerPID.setP(0.001);
+    throwerPID.setI(0.0);
+    throwerPID.setD(25.0);
     throwerPID.setIZone(0.0);
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
@@ -101,6 +113,7 @@ public class Thrower extends Subsystem {
 
     // power = getPercentFromRPM(-2650.0);
     System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
+    System.out.println(d);
     SmartDashboard.putNumber("distance", d);
     SmartDashboard.putNumber("RPM", power);
     // throwermotor.set(power);

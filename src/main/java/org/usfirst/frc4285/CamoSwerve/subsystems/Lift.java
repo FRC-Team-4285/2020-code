@@ -39,13 +39,13 @@ public class Lift extends Subsystem {
     liftPID.setD(0.0);
     liftPID.setIZone(0.0);
     liftPID.setFF(0.0);
-    liftPID.setOutputRange(-0.2, 0.2);
+    liftPID.setOutputRange(-0.6, 0.6);
 
-    // liftPID.setReference(0.0, ControlType.kPosition);
+    // liftPID.setReference(-483, ControlType.kPosition);
 
     System.out.println("Elevator position:" + liftencoder.getPosition());
 
-    liftmotor.set(-0.2);
+    liftmotor.set(-0.8);
   }
 
   public void lower() {
@@ -57,11 +57,11 @@ public class Lift extends Subsystem {
     liftPID.setFF(0.0);
     liftPID.setOutputRange(-0.2, 0.2);
 
-    // liftPID.setReference(0.0, ControlType.kPosition);
+    //liftPID.setReference(-263, ControlType.kPosition);
 
-    // System.out.println("Elevator position:" + liftencoder.getPosition());
+    System.out.println("Elevator position:" + liftencoder.getPosition());
   
-    liftmotor.set(0.2);
+    liftmotor.set(0.6);
   }
 
   public void moveToColorWheel() {
@@ -73,7 +73,7 @@ public class Lift extends Subsystem {
     liftPID.setFF(0.0);
     liftPID.setOutputRange(-0.2, 0.2);
   
-    liftPID.setReference(-40.0, ControlType.kPosition);
+    liftPID.setReference(-43.0, ControlType.kPosition);
 
     System.out.println("Elevator position:" + liftencoder.getPosition());
   }
