@@ -25,7 +25,7 @@ public class FieldCentricSwerveDrive extends Command {
 	
 	@Override
 	protected void initialize() {
-		originHeading = Robot.zeroHeading;
+		originHeading = RobotMap.navX.getFusedHeading();
 	}
 
     @Override
@@ -52,9 +52,9 @@ public class FieldCentricSwerveDrive extends Command {
 		*/
 
 		//Two Joysticks
-		double strafe = Robot.oi.leftJoy.getX();
+		double strafe = Robot.oi.leftJoy.getX() * -1;
 		double forward = Robot.oi.leftJoy.getY();
-		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
+		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE * -1;
 		
 		// double strafe = Robot.oi.controller.getRawAxis(0) * -1;
 	 	// double forward = Robot.oi.controller.getRawAxis(1);
