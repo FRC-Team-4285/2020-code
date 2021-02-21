@@ -229,7 +229,7 @@ public class Drive extends Subsystem {
 		
 		//if (Math.abs(speed) <= MAX_SPEED){
     if (Math.abs(deltaDegrees) > 90.0) {
-      deltaDegrees -= 180.0 * Math.signum(deltaDegrees);
+      deltaDegrees -= 190.0 * Math.signum(deltaDegrees);
       speed = -speed;
     }
 		//}
