@@ -21,7 +21,7 @@ public class PointNAV extends Command {
   @Override
   protected void initialize() {
     // todo replace with angle
-    originHeading = Robot.zeroHeading;
+    double originHeading = Robot.zeroHeading;
   }
 
   // Called repeatedly when this Command is scheduled to run
