@@ -14,6 +14,8 @@ public class AutoMiddle extends CommandGroup {
    * Add your docs here.
    */
   public AutoMiddle() {
+    addSequential(new MoveBack());
+    addSequential(new MoveRight());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

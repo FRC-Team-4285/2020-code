@@ -27,7 +27,7 @@ public class BallIntakeUp extends Command {
   @Override
   protected void execute() {
     Robot.ballpickup.ballin();
-    if (timeSinceInitialized() > 0.75) {
+    if (timeSinceInitialized() > 0.5) {
     Robot.ballpickup.ballrun();
     }
   }
