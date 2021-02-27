@@ -57,7 +57,7 @@ public class Lift extends Subsystem {
     liftPID.setFF(0.0);
     liftPID.setOutputRange(-0.2, 0.2);
 
-    //liftPID.setReference(-263, ControlType.kPosition);
+    // liftPID.setReference(-263, ControlType.kPosition);
 
     System.out.println("Elevator position:" + liftencoder.getPosition());
   

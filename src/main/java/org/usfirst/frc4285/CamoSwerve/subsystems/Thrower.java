@@ -7,7 +7,7 @@
 
 package org.usfirst.frc4285.CamoSwerve.subsystems;
 
-import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -42,6 +42,9 @@ public class Thrower extends Subsystem {
   private double h2;
   private double d;
   private double power;
+  private CANEncoder shooterEncoder;
+
+  
 
   public Thrower() {
     feedmotor = new CANSparkMax(RobotMap.FEED_MOTOR_ID, MotorType.kBrushless);
@@ -82,8 +85,10 @@ public class Thrower extends Subsystem {
     //power = -3385;
     //power = -(2464 + -3.17*d + .0179*(d*d)); //lower power
     //power = -(1799 + 3.94*d + .00202*(d*d));
-    power = -(2572 + -1.83*d + .0151*(d*d)) - 25; //The golden equation for consistency
-
+    power = -(2572 + -1.83*d + .0151*(d*d)) - 55; //The golden equation for consistency
+    //power = -(1585 + 8.67*d + -.00987*(d*d)) - 55; //The golden equation updated, adjusted for long distance
+    //power = -(2191 + 3.04*d + -.0022*(d*d)) - 55; //The golden equation even more updated, use this
+    //power = -(2206 + 2.1*d + .00539*(d*d)) - 55;
   
     // power = -(((int)power) / 100.0) * 1.75;
     
@@ -102,20 +107,23 @@ public class Thrower extends Subsystem {
     throwerPID.setFF(0.0);
     throwerPID.setOutputRange(-1.0, 0.0);
 
+    
+    shooterEncoder = throwermotor.getEncoder();
+    SmartDashboard.putNumber("Actual Ball Shooter RPM", shooterEncoder.getVelocity());
+    SmartDashboard.putNumber("Robot Angle (degrees)", RobotMap.navX.getAngle());
+    //System.out.println(RobotMap.navX.getFusedHeading());
+
     // if(d > 100) {
     //   throwerPID.setReference(-9000.0, ControlType.kVelocity);
     // }
     // else {
 
-
-      throwerPID.setReference(power, ControlType.kVelocity);
+    throwerPID.setReference(power, ControlType.kVelocity);
     // }
 
-    // power = getPercentFromRPM(-2650.0);
-    System.out.println("Power: " + power + "; RPM: " + throwermotorEncoder.getVelocity());
-    System.out.println(d);
-    SmartDashboard.putNumber("distance", d);
-    SmartDashboard.putNumber("RPM", power);
+    //System.out.println(d);
+    SmartDashboard.putNumber("distance1", d);
+    SmartDashboard.putNumber("RPM1", power);
     // throwermotor.set(power);
     
   }

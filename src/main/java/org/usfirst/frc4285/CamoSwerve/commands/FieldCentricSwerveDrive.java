@@ -35,9 +35,11 @@ public class FieldCentricSwerveDrive extends Command {
 		}
 
 		// One Joystick
+		/*
 		double strafe = Robot.oi.rightJoy.getX() * -1;
 		double forward = Robot.oi.rightJoy.getY();
-		double omega = Robot.oi.rightJoy.getZ() * OMEGA_SCALE * -1;
+		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE * -1;
+		*/
 
 		/* One Joystick
 		double strafe = Robot.oi.rightJoy.getX();
@@ -51,14 +53,10 @@ public class FieldCentricSwerveDrive extends Command {
 		double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE;
 		*/
 
-		/* Two Joysticks
-		double strafe = Robot.oi.leftJoy.getX();
-		double forward = Robot.oi.leftJoy.getY() * -1;
-		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE;
-		*/
-		// double strafe = Robot.oi.controller.getRawAxis(0) * -1;
-		// double forward = Robot.oi.controller.getRawAxis(1);
-		// double omega = Robot.oi.controller.getRawAxis(4) * OMEGA_SCALE * -1;
+		//Two Joysticks
+		double strafe = Robot.oi.leftJoy.getX() * -1;
+		double forward = Robot.oi.leftJoy.getY();
+		double omega = Robot.oi.rightJoy.getX() * OMEGA_SCALE * -1;
 		
         // Add a small deadzone on the joysticks
         if (Math.abs(strafe) < DEADZONE) strafe = 0.0;

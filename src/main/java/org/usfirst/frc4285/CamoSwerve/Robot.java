@@ -31,6 +31,8 @@ public class Robot extends TimedRobot {
 
     public static double zeroHeading;
     public static double zeroAngle;
+    public static double x_displacement;
+    public static double y_displacement;
     
     public static Drive drive;
     public static Ballpickup ballpickup;
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot {
     public static ColorWheel colorwheel;
     public static OI oi;
   
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -56,6 +59,7 @@ public class Robot extends TimedRobot {
         thrower = new Thrower();
         lift = new Lift();
         colorwheel = new ColorWheel();
+        autonomousCommand = new AutonomousCommand();
           
         //OI is always last!!
         oi = new OI();
@@ -66,6 +70,8 @@ public class Robot extends TimedRobot {
 
         zeroHeading = navX.getFusedHeading();
         zeroAngle = navX.getAngle();
+        x_displacement = navX.getDisplacementX();
+        y_displacement = navX.getDisplacementY();
     
     }
 
@@ -101,7 +107,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -129,6 +134,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
     }
     /**
    * This function is called periodically during test mode.

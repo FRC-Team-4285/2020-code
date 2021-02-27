@@ -73,22 +73,23 @@ public class OI {
         btnTurretTurnLeft = new JoystickButton(rightJoy, 6);
         btnTurretTurnLeft.whenPressed(new TurretLeft());
 
-        // DEBUG: Turret Auto-Tracking Initializer
+        // Turret Auto-Tracking Initializer
         btnTurretTracking = new JoystickButton(rightJoy, 2);
         btnTurretTracking.whenPressed(new Follow());
 
         // Ball Intake Pickup
-        btnBallIntakeUp = new JoystickButton(leftJoy, 4);
+        btnBallIntakeUp = new JoystickButton(leftJoy, 1);
         btnBallIntakeUp.whenPressed(new BallIntakeUp());
 
         // Ball Intake Dropping
-        btnBallIntakeDrop = new JoystickButton(leftJoy, 3);
+        btnBallIntakeDrop = new JoystickButton(leftJoy, 4);
         btnBallIntakeDrop.whenPressed(new BallIntakeDrop());
 
         // End game shot
         btnHailMary = new JoystickButton(leftJoy, 5);
         btnHailMary.whenPressed(new HailMary());
 
+        /*
         // Lifts elevator
         btnLift = new JoystickButton(rightJoy, 4);
         btnLift.whenPressed(new Lifting());
@@ -108,18 +109,7 @@ public class OI {
         // Spins Color Wheel
         btnSpinColorWheel = new JoystickButton(rightJoy, 9);
         btnSpinColorWheel.whenPressed(new SpinColorWheel());
-
-        //////////////////////////////////////
-        ///     PENDING IMPLEMENTATION     ///
-        //////////////////////////////////////
-
-        // btnBallIntakePickup = new JoystickButton(leftJoy, 4);
-        // btnBallIntakePickup.whenPressed(new Pickupballput());
-
-        // DEBUG: Ball Intake Initializer
-        // btnRunBallIntake = new JoystickButton(leftJoy, 2);
-        // btnRunBallIntake.whenPressed(new BallIntake());
-    
+        */    
     }
 
     public boolean getButtonTurretFollow() {
@@ -167,7 +157,7 @@ public class OI {
          * up a ball.
          */
 
-        return leftJoy.getRawButtonReleased(4);
+        return leftJoy.getRawButtonReleased(1);
     }
 
     public boolean getButtonBallDrop() {
@@ -177,7 +167,7 @@ public class OI {
          * the ball into the feeder.
          */
 
-         return leftJoy.getRawButtonReleased(3);
+         return leftJoy.getRawButtonReleased(4);
     }
 
     public boolean getLeftJoyButton (int buttonNumber) {
@@ -206,23 +196,23 @@ public class OI {
 
         return leftJoy.getRawButtonReleased(5);
     }
-
+    
     public boolean getButtonLiftRaise() {
-        /*
-         * Returns the activity status of the button
-         * mapped to enable the elevator to go up.
-         */
+        
+         // Returns the activity status of the button
+         // mapped to enable the elevator to go up.
+         
         return rightJoy.getRawButtonReleased(4);
     }
 
     public boolean getButtonLiftLower() {
-        /*
-         * Returns the activity status of the button
-         * mapped to enable the elevator to go down.
-         */
+        
+         // Returns the activity status of the button
+         // mapped to enable the elevator to go down.
+         
         return rightJoy.getRawButtonReleased(3);
     }
-
+    
     public double getRightTrigger () {
         /*
          * Returns the activity status of the right
@@ -230,7 +220,7 @@ public class OI {
          */
         return controller.getRawAxis(3);
     }
-
+    
     public boolean getButtonSpinColorWheel() {
         /*
          * Returns the activity status of the button

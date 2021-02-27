@@ -10,16 +10,20 @@ package org.usfirst.frc4285.CamoSwerve.subsystems;
 import java.util.Arrays;
 import java.util.Collections;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 import org.usfirst.frc4285.CamoSwerve.commands.FieldCentricSwerveDrive;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.*;
-
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+// import com.revrobotics.CANPIDController;
+
 
 
 public class Drive extends Subsystem {
@@ -28,37 +32,50 @@ public class Drive extends Subsystem {
 	private CANSparkMax driveLeftRearSpark;
 	private CANSparkMax driveRightFrontSpark;
   private CANSparkMax driveRightRearSpark;
+
+  
+  
+  // private CANPIDController drivePID;
   
 	private TalonSRX steerLeftFront;
 	private TalonSRX steerLeftRear;
 	private TalonSRX steerRightFront;
 	private TalonSRX steerRightRear;
 
-  //Wheelbase lengthes are measured from where wheels touch the ground
+  // Wheelbase lengthes are measured from where wheels touch the ground
 	public static final double WHEEL_BASE_LENGTH = 22.5;  
   public static final double WHEEL_BASE_WIDTH = 22.5; 
-  //Encoder counts are 1024 for ma3. 4096 for ctre mag encoders
+  // Encoder counts are 1024 for ma3. 4096 for ctre mag encoders
 	public static final double ENCODER_COUNT_PER_ROTATION = 1024; 
 
 	public static final double WHEEL_DIAMETER = 4.0;
-	//todo: increase MAX_SPEED
+	// todo: increase MAX_SPEED
 	public static final double MAX_SPEED = 0.3; //Max speed is 0 to 1 
   public static final double STEER_DEGREES_PER_COUNT = 360.0 / ENCODER_COUNT_PER_ROTATION;
-  //Drive inches per count is calculated for cimcoders under motor with a final gear reduction of 6.67
-  //which is the reduction for the andymark swerve and steer.
+  // Drive inches per count is calculated for cimcoders under motor with a final gear reduction of 6.67
+  // which is the reduction for the andymark swerve and steer.
 	public static final double DRIVE_INCHES_PER_COUNT = (WHEEL_DIAMETER * Math.PI) / (80.0 * 6.67);
 	public static final double DEADZONE = 0.09;
 	public static final double MAX_REVERSIBLE_SPEED_DIFFERENCE = 0.5 * MAX_SPEED;
 
-  //The steering PIDs need to be adjusted for your drive. Start with I = D =0
-  //Set P low and try moving. If no oscilation double P. When steer oscillates 
-  //set P to last value that did not oscillate. set D to about P * 10 to start
+  // The steering PIDs need to be adjusted for your drive. Start with I = D =0
+  // Set P low and try moving. If no oscilation double P. When steer oscillates 
+  // set P to last value that did not oscillate. set D to about P * 10 to start
 	private static final double STEER_P = 3.85, STEER_I = 0.0, STEER_D = 35;
-	private static final int STATUS_FRAME_PERIOD = 5;
+  private static final int STATUS_FRAME_PERIOD = 5;
+
+  private CANEncoder driveLeftFrontEncoder;
+  private CANEncoder driveLeftRearEncoder;
+  private CANEncoder driveRightFrontEncoder;
+  private CANEncoder driveRightRearEncoder;
+
+  private double swerveAverageRPM;
+  private double robotSpeed;
+  
 
 	public Drive() {
     
-    //BEGIN CONFIGURURATION OF DRIVE MOTOR CONTROLLERS
+    // BEGIN CONFIGURURATION OF DRIVE MOTOR CONTROLLERS
 
 		driveLeftFrontSpark = new CANSparkMax(RobotMap.DRIVE_LEFT_FRONT_ID, MotorType.kBrushless);
 		driveLeftFrontSpark.restoreFactoryDefaults();
@@ -66,7 +83,8 @@ public class Drive extends Subsystem {
     driveLeftFrontSpark.setInverted(false);
 		driveLeftFrontSpark.setOpenLoopRampRate(0.125);
 		driveLeftFrontSpark.setSmartCurrentLimit(60);
-		
+
+
 		driveLeftRearSpark = new CANSparkMax(RobotMap.DRIVE_LEFT_REAR_ID, MotorType.kBrushless);
 		driveLeftRearSpark.restoreFactoryDefaults();
     driveLeftRearSpark.setIdleMode(IdleMode.kBrake);
@@ -86,7 +104,9 @@ public class Drive extends Subsystem {
     driveRightRearSpark.setIdleMode(IdleMode.kBrake);
     driveLeftFrontSpark.setInverted(false);
 		driveRightRearSpark.setOpenLoopRampRate(0.125);
-		driveRightRearSpark.setSmartCurrentLimit(60);
+    driveRightRearSpark.setSmartCurrentLimit(60);
+    
+
 		// END OF DRIVE MOTOR CONTROLLER CONFIGURATION
 
 		// BEGIN STEERING MOTOR CONTROLLER CONFIGURATION CODE
@@ -146,6 +166,10 @@ public class Drive extends Subsystem {
     steerRightRear.setNeutralMode(NeutralMode.Brake);
     steerRightRear.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, STATUS_FRAME_PERIOD, 0);
     // END OF STEERING MOTOR CONTROLLER CONFIGURATION
+
+    // drivePID = driveLeftFrontSpark.getPIDController();
+    // SmartDashboard.putNumber("speed", drivePID);
+
   }
   
 
@@ -177,7 +201,7 @@ public class Drive extends Subsystem {
     // double angleRF = angle(B, C) + 90;
     // double angleRR = angle(A, C) - 90;
 
-    //If the drive are set to zero facing the front use the 
+    // If the drive are set to zero facing the front use the 
     // Main Bot
     // double angleLF = angle(B, D) - 91;
     // double angleLR = angle(A, D) + 93;
@@ -197,7 +221,27 @@ public class Drive extends Subsystem {
     setSwerveModule(steerLeftFront, driveLeftFrontSpark, angleLF, speedLF / maxSpeed);
     setSwerveModule(steerLeftRear, driveLeftRearSpark, angleLR, speedLR / maxSpeed);
     setSwerveModule(steerRightFront, driveRightFrontSpark, angleRF, speedRF / maxSpeed);
-		setSwerveModule(steerRightRear, driveRightRearSpark, angleRR, speedRR / maxSpeed);
+    setSwerveModule(steerRightRear, driveRightRearSpark, angleRR, speedRR / maxSpeed);
+    driveLeftFrontEncoder = driveLeftFrontSpark.getEncoder();
+    driveLeftRearEncoder = driveLeftRearSpark.getEncoder();
+    driveRightFrontEncoder = driveRightFrontSpark.getEncoder();
+    driveRightRearEncoder = driveRightRearSpark.getEncoder();
+
+    swerveAverageRPM = (Math.abs(driveRightFrontEncoder.getVelocity()) + Math.abs(driveRightRearEncoder.getVelocity()) + Math.abs(driveLeftRearEncoder.getVelocity()) + Math.abs(driveLeftFrontEncoder.getVelocity())) / 4;
+
+
+    robotSpeed = Math.abs((((swerveAverageRPM / 10)*12.5663)/60)/12);
+
+
+    SmartDashboard.putNumber("Swerve Drive Average RPM Test", swerveAverageRPM);
+    SmartDashboard.putNumber("Rigth front RPM", driveRightFrontEncoder.getVelocity());
+    SmartDashboard.putNumber("Left front RPM", driveLeftFrontEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Rear RPM", driveRightRearEncoder.getVelocity());
+    SmartDashboard.putNumber("Left Rear RPM", driveLeftRearEncoder.getVelocity());
+    SmartDashboard.putNumber("Robot Speed (ft/s)", robotSpeed);
+    SmartDashboard.putNumber("Robot Speed (ft/s)1", robotSpeed);
+    //System.out.println(robotSpeed);
+    //System.out.println(RobotMap.navX.getFusedHeading());
 	}
 	
 	private double speed(double val1, double val2){
@@ -206,6 +250,7 @@ public class Drive extends Subsystem {
   
   private double angle(double val1, double val2){
     return Math.toDegrees(Math.atan2(val1, val2));
+    
   }
 	
 
@@ -240,6 +285,8 @@ public class Drive extends Subsystem {
 		steer.set(ControlMode.Position, targetPosition);
     //drive.set(ControlMode.PercentOutput, speed);
     drive.set(-speed);
+    //System.out.println(targetPosition);
+    //System.out.println(currentAngle);
 
 	}
 
@@ -260,8 +307,8 @@ public class Drive extends Subsystem {
 	
 	public double getSteerRREncoder() {
 		return steerRightRear.getSelectedSensorPosition(0);
-	}
-
+  }
+  
 	// //setting motors
 	public void setDriveLeftFront(double speed){
 		driveLeftFrontSpark.set(speed);
