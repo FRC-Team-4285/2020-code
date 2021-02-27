@@ -18,13 +18,14 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
-/**
- * Add your docs here.
- */
 public class ColorWheel extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  
+/*
+ * Color Wheel Subsystem
+ *
+ * This system is responsible for spinning the color wheel and
+ * identify the color currently being viewed.
+ */
+
   private final CANSparkMax colormotor;
   
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -39,7 +40,11 @@ public class ColorWheel extends Subsystem {
   private Color detectedColor;
 
 
-  public ColorWheel() {  
+  public ColorWheel() {
+    /*
+     * Constructor method.
+     */
+
     colormotor = new CANSparkMax(RobotMap.COLOR_WHEEL_MOTOR_ID, MotorType.kBrushless);
 
     m_color_matcher.addColorMatch(kBlueTarget);
@@ -49,8 +54,11 @@ public class ColorWheel extends Subsystem {
   }
 
   public void spin() {
+    /*
+     * Engage spin motors and detect colors while spinning.
+     */
+
     detectedColor = m_color_sensor.getColor();
-    //m_color_sensor.
   
     String colorString;
     final ColorMatchResult match = m_color_matcher.matchClosestColor(detectedColor);
@@ -73,6 +81,10 @@ public class ColorWheel extends Subsystem {
   }
 
   public void stop() {
+    /*
+     * Stop spin motor.
+     */
+
     colormotor.set(0.0);
   }
 
