@@ -40,6 +40,7 @@ public class OI {
     public Button btnBallIntakePickup;
     public Button btnBallIntakeUp;
     public Button btnBallIntakeDrop;
+    public Button btnLowBall;
     public Button btnHailMary;
     public Button btnLift;
     public Button btnLower;
@@ -84,6 +85,10 @@ public class OI {
         // Ball Intake Dropping
         btnBallIntakeDrop = new JoystickButton(leftJoy, 4);
         btnBallIntakeDrop.whenPressed(new BallIntakeDrop());
+
+        // Shoots ball in low goal
+        btnLowBall = new JoystickButton(leftJoy, 3);
+        // btnLowBall.whenPressed(new );
 
         // End game shot
         btnHailMary = new JoystickButton(leftJoy, 5);

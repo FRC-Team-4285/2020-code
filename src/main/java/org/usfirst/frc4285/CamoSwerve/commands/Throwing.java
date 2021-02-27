@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc4285.CamoSwerve.commands;
 
 import org.usfirst.frc4285.CamoSwerve.Robot;
@@ -27,14 +20,19 @@ public class Throwing extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Engage initial motors to feed ball in to the shooter.
     if (timeSinceInitialized() > 0) {
       Robot.thrower.thrown();
     }
-    if (timeSinceInitialized() > .5) {
+
+    // Start moving the ball up inside the shooter near the turret.
+    if (timeSinceInitialized() > 0.5) {
       Robot.thrower.thrown();
       Robot.thrower.loadshooter();
     }  
-    if(timeSinceInitialized() > 1.5) {
+
+    // Shoot the ball out of the turret.
+    if(timeSinceInitialized() > 2.5) {
       Robot.thrower.thrown();
       Robot.thrower.loadstack();
       Robot.thrower.loadshooter();
