@@ -42,7 +42,7 @@ public class RobotMap {
   public static final int LIFT_MOTOR_ID = 15;
 
   // Use Phoenix Diagnostics Tool + USB to roborio to find this.
-  public static final int TURRET_FLAP_ID = 16;
+  public static final int TURRET_FLAP_ID = 0;
 
   public static void init() {
     navX = new AHRS(SPI.Port.kMXP);
