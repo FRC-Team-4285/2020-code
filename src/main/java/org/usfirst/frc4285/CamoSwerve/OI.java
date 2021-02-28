@@ -40,7 +40,8 @@ public class OI {
     public Button btnBallIntakePickup;
     public Button btnBallIntakeUp;
     public Button btnBallIntakeDrop;
-    public Button btnLowBall;
+    public Button btnTurretFlapLower;
+    public Button btnTurretFlapRaise;
     public Button btnHailMary;
     public Button btnLift;
     public Button btnLower;
@@ -86,9 +87,13 @@ public class OI {
         btnBallIntakeDrop = new JoystickButton(leftJoy, 4);
         btnBallIntakeDrop.whenPressed(new BallIntakeDrop());
 
-        // Shoots ball in low goal
-        btnLowBall = new JoystickButton(leftJoy, 3);
-        // btnLowBall.whenPressed(new );
+        // Adjusts turret flap to target low goal.
+        btnTurretFlapLower = new JoystickButton(leftJoy, 3);
+        btnTurretFlapLower.whenPressed(new TurretFlapLower());
+
+        // Adjusts turret flap to target high goal.
+        btnTurretFlapRaise = new JoystickButton(leftJoy, 4);
+        btnTurretFlapRaise.whenPressed(new TurretFlapRaise());
 
         // End game shot
         btnHailMary = new JoystickButton(leftJoy, 5);

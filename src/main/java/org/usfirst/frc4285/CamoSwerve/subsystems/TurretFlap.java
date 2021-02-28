@@ -36,14 +36,14 @@ public class TurretFlap extends Subsystem {
     /*
      * Engage spin motors and detect colors while spinning.
      */
-    flapMotor.set(ControlMode.PercentOutput, 1.0);
+    flapMotor.set(ControlMode.PercentOutput, 0.25);
   }
   
   public void lower() {
     /*
      * Engage spin motors and detect colors while spinning.
      */
-    flapMotor.set(ControlMode.PercentOutput, -1.0);
+    flapMotor.set(ControlMode.PercentOutput, -0.25);
   }
 
   public void stop() {
