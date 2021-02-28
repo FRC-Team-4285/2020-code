@@ -20,13 +20,14 @@ public class TurretFlapLower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Lower");
     Robot.turretFlap.lower();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonRaiseFlap();
+    return Robot.oi.getButtonLowerFlap();
   }
 
   // Called once after isFinished returns true
