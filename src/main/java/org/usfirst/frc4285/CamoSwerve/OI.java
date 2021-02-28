@@ -195,7 +195,7 @@ public class OI {
         return leftJoy.getRawButtonReleased(4);
     }
 
-    public boolean getLeftJoyButton (int buttonNumber) {
+    public boolean getLeftJoyButton(int buttonNumber) {
         /*
          * Returns the activity status of the button number
          * associated with 'buttonNumber'.
@@ -204,7 +204,7 @@ public class OI {
         return leftJoy.getRawButton(buttonNumber);
     }
 
-    public boolean getRightJoyButton (int buttonNumber) {
+    public boolean getRightJoyButton(int buttonNumber) {
         /*
          * Returns the activity status of the button number
          * associated with 'buttonNumber'.
@@ -238,7 +238,7 @@ public class OI {
         return rightJoy.getRawButtonReleased(3);
     }
     
-    public double getRightTrigger () {
+    public double getRightTrigger() {
         /*
          * Returns the activity status of the right
          * trigger.

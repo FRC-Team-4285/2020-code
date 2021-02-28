@@ -20,7 +20,7 @@ public class TurretFlapLower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.turretFlap.raise();
+    Robot.turretFlap.lower();
   }
 
   // Make this return true when this Command no longer needs to run execute()
