@@ -29,7 +29,7 @@ public class TurretFlap extends Subsystem {
      * Constructor method.
      */
 
-    flapMotor = new VictorSPX(0);
+    flapMotor = new VictorSPX(RobotMap.TURRET_FLAP_ID);
   }
 
   public void raise() {
