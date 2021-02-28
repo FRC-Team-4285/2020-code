@@ -96,7 +96,7 @@ public class Thrower extends Subsystem {
         //power = -(2206 + 2.1*d + .00539*(d*d)) - 55;
       
         // power = -(((int)power) / 100.0) * 1.75;
-        
+
         throwerPID = throwermotor.getPIDController();
         throwerPID.setP(0.001);
         throwerPID.setI(0.0);
