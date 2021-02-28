@@ -175,6 +175,26 @@ public class OI {
          return leftJoy.getRawButtonReleased(4);
     }
 
+    public boolean getButtonLowerFlap() {
+        /*
+         * Returns the activity status of the button
+         * mapped to raise turret flap to target high
+         * goal.
+         */
+
+        return leftJoy.getRawButtonReleased(3);
+    }
+
+    public boolean getButtonRaiseFlap() {
+        /*
+         * Returns the activity status of the button
+         * mapped to raise turret flap to target high
+         * goal.
+         */
+
+        return leftJoy.getRawButtonReleased(4);
+    }
+
     public boolean getLeftJoyButton (int buttonNumber) {
         /*
          * Returns the activity status of the button number

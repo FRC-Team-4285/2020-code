@@ -5,11 +5,11 @@ import org.usfirst.frc4285.CamoSwerve.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class SpinColorWheel extends Command {
+public class TurretFlapRaise extends Command {
 
-  public SpinColorWheel() {
+  public TurretFlapRaise() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.colorwheel);
+    requires(Robot.turretFlap);
   }
 
   // Called just before this Command runs the first time
@@ -20,19 +20,19 @@ public class SpinColorWheel extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.colorwheel.spin();
+    Robot.turretFlap.raise();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.getButtonSpinColorWheel();
+    return Robot.oi.getButtonRaiseFlap();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.colorwheel.stop();
+    Robot.turretFlap.stop();
   }
 
   // Called when another command which requires one or more of the same
