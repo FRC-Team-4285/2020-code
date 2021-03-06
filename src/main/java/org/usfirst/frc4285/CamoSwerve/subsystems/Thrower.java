@@ -9,6 +9,9 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import org.usfirst.frc4285.CamoSwerve.RobotMap;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -29,6 +32,7 @@ public class Thrower extends Subsystem {
     private CANSparkMax throwermotor;
     private CANSparkMax feedmotor;
     private CANSparkMax stackmotor;
+    private VictorSPX turretadjust;
     private CANEncoder throwermotorEncoder;
     private CANEncoder feedmotorEncoder;
     private CANEncoder stackmotorEncoder;
@@ -56,6 +60,9 @@ public class Thrower extends Subsystem {
 
         stackmotor = new CANSparkMax(RobotMap.STACK_MOTOR_ID, MotorType.kBrushless);    
         stackmotorEncoder = new CANEncoder(stackmotor);
+
+        // turretadjust = new VictorSPX(RobotMap.THROWER_ADJUST_MOTOR_ID);
+  
     }
 
     public void thrown() {
@@ -137,11 +144,25 @@ public class Thrower extends Subsystem {
         stackmotor.set(1.0);
     }
 
+    public void lowerAdjust() {
+        /*
+         * Turn on motor to lower turret adjustment flap.
+         */
+        // turretadjust.set(ControlMode.PercentOutput, 1);
+    }
+
+    public void raiseAdjust() {
+        /*
+          * Turn on motor to raise turret adjustment flap.
+          */
+        // turretadjust.set(ControlMode.PercentOutput, -1);
+    }
+
     public void Hail() {
         /*
-         * Turn on motor to high speed for hail mary shot.
-         */
-        throwermotor.set(-0.9);
+          * Turn on motor to high speed for hail mary shot.
+          */
+        throwermotor.set(-0.6);
     }
 
     public void stop() {

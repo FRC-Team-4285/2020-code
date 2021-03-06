@@ -103,7 +103,7 @@ public class OI {
         btnLower = new JoystickButton(rightJoy, 3);
         btnLower.whenPressed(new Lowering());
 
-        // Lifts Elevator to Color Wheel
+        // Lifts Elevator to Color Wheelgi
         btnLiftToStartingPosition = new JoystickButton(rightJoy, 10);
         btnLiftToStartingPosition.whenPressed(new LiftPosStartingConfig());
 

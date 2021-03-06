@@ -41,6 +41,7 @@ public class RobotMap {
 
   public static final int LIFT_MOTOR_ID = 15;
   public static final int COLOR_WHEEL_MOTOR_ID = 16;
+  public static final int THROWER_ADJUST_MOTOR_ID = 17;
 
   public static void init() {
     navX = new AHRS(SPI.Port.kMXP);
